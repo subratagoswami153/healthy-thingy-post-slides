@@ -17,7 +17,7 @@
  * Plugin Name:       Healthy thingy post slides
  * Plugin URI:        https://healthythingy.com/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.5.7
+ * Version:           1.5.8
  * Author:            Elmi Media
  * Author URI:        https://healthythingy.com/
  * License:           GPL-2.0+
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'HEALTHY_THINGY_POST_SLIDES_VERSION', '1.5.7' );
+define( 'HEALTHY_THINGY_POST_SLIDES_VERSION', '1.5.8' );
 define('UTM_JSON',plugin_dir_path(__FILE__) . 'admin/json/utm.json');
 
 /**
@@ -85,5 +85,5 @@ run_healthy_thingy_post_slides();
 
 require_once( 'class-plugin-updater.php' );
 if ( is_admin() ) {
-    new BFIGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
+    new WPFDGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
 }
