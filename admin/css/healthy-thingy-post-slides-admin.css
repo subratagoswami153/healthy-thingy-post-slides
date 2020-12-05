@@ -1,0 +1,248 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.ht-row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="ht-col-"] {
+  float: left;
+  padding: 15px;
+  /*border: 1px solid red;*/
+}
+
+.ht-col-1 {width: 8.33%;}
+.ht-col-2 {width: 16.66%;}
+.ht-col-3 {width: 25%;}
+.ht-col-4 {width: 33.33%;}
+.ht-col-5 {width: 41.66%;}
+.ht-col-6 {width: 50%;}
+.ht-col-7 {width: 58.33%;}
+.ht-col-8 {width: 66.66%;}
+.ht-col-9 {width: 75%;}
+.ht-col-10 {width: 83.33%;}
+.ht-col-11 {width: 91.66%;}
+.ht-col-12 {width: 100%;}
+
+
+.main-wrapper{
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+.common-divider{
+    box-shadow: 4px 4px 8px -1px #d2d2d2;
+    display: inline-block;
+    width: 100%;
+    padding: 15px 10px;
+    border: #0e0e0e dashed 1px;
+}
+
+.margin-10{
+    margin: 10px 0px !important;
+}
+ /* Style the form - display items horizontally */
+.ht-slide-settings .form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.ht-slide-settings .form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.ht-slide-settings .form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style the submit button */
+.ht-slide-settings .form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.ht-slide-settings .form-inline button:hover {
+  background-color: royalblue;
+}
+
+.table-wrapper{
+    margin: 10px;
+    padding: 10px;
+    
+}
+
+
+.accordion-container > h2{
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+.set{
+	position: relative;
+    /*width: 48%;*/
+    width: 100%;
+    height: auto;
+    background-color: #f5f5f5;
+    float: right;
+    margin: 5px 0px;
+    /* padding-right: 49px; */
+    border: 1px solid #dedede;
+}
+.set > a{
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  -webkit-transition:all 0.2s linear;
+  -moz-transition:all 0.2s linear;
+  transition:all 0.2s linear;
+}
+.set > a i{
+  float: right;
+  margin-top: 2px;
+}
+.set > a.active{
+  background-color:#3399cc;
+  color: #fff;
+}
+.content{
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  display:none;
+}
+.content p{
+  padding: 10px 15px;
+  margin: 0;
+  color: #333;
+}
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+@media (max-width: 800px) {
+  .ht-slide-settings .form-inline input {
+    margin: 10px 0;
+  }
+
+  .ht-slide-settings .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ht-slide-settings input[type=text], select, textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  margin: 5px;
+}
+
+.ht-slide-settings label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.ht-slide-settings input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+}
+
+.ht-slide-settings input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.ht-slide-settings .container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.ht-slide-settings .col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.ht-slide-settings .col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.ht-slide-settings .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .ht-slide-settings .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+.ht-slide-settings .add_field_button{
+	margin-left: 50%;
+}
+.ht-slide-settings .remove-img{
+	display: flex;
+}
+.remove-img img{
+	margin-top: 75%;
+}
+.ht-slide-settings .ht-fixed-content{
+	display: none;
+}
+.ht-slide-settings .ht-fixed-content-mobile{
+  display: none;
+}
+.disable-field{
+  display: none;
+}
+.first-image-hide{
+  display: none !important;
+}
+
+.settings-save{
+  margin: 10px;
+  padding: 10px 30px;
+}
+.table-wrapper{
+  display: grid;
+}
+.first-slide{
+    display: none;
+}
+.first-image{
+    display: none;
+}
+.qty_field{
+    display: none;
+}
