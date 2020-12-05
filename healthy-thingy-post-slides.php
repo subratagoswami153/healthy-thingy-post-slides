@@ -82,3 +82,8 @@ function run_healthy_thingy_post_slides() {
 
 }
 run_healthy_thingy_post_slides();
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-plugin-updater.php' );
+if ( is_admin() ) {
+    new BFIGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
+}
