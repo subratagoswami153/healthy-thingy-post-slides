@@ -169,6 +169,7 @@
     var flag = true;
     var total = 2;
     jQuery(window).on('scroll', function ($) {
+        console.log('plugin version 1.5.6 updated successfully');
 
         if (!healthyThingyObj.utm_exists)
             return false
