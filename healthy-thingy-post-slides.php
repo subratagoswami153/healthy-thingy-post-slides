@@ -88,7 +88,7 @@ run_healthy_thingy_post_slides();
 //     new WPFDGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
 // }
 if( ! class_exists( 'Smashing_Updater' ) ){
-	include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
+	include_once( plugin_dir_path( __FILE__ ) . 'class-plugin-updater.php' );
 }
 
 $updater = new Smashing_Updater( __FILE__ );
