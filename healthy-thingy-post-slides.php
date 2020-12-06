@@ -17,7 +17,7 @@
  * Plugin Name:       Healthy thingy post slides
  * Plugin URI:        https://healthythingy.com/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.6.2
+ * Version:           1.5.7
  * Author:            Elmi Media
  * Author URI:        https://healthythingy.com/
  * License:           GPL-2.0+
@@ -30,15 +30,12 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-if ( ! defined( 'PU_PLUGIN_FILE' ) ) {
-	define( 'PU_PLUGIN_FILE', __FILE__ );
-}
 /**
  * Currently plugin version.
  * Start at version 1.0.0
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'HEALTHY_THINGY_POST_SLIDES_VERSION', '1.6.2' );
+define( 'HEALTHY_THINGY_POST_SLIDES_VERSION', '1.5.7' );
 define('UTM_JSON',plugin_dir_path(__FILE__) . 'admin/json/utm.json');
 
 /**
@@ -78,14 +75,26 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-healthy-thingy-post-slides
  * @since    1.0.0
  */
 function run_healthy_thingy_post_slides() {
+
 	$plugin = new Healthy_Thingy_Post_Slides();
 	$plugin->run();
 
 }
 run_healthy_thingy_post_slides();
 
-require_once( plugin_dir_path( __FILE__ ) . 'class-plugin-updater.php' );
+// require_once( plugin_dir_path( __FILE__ ) . 'class-plugin-updater.php' );
 
-if ( is_admin() ) {
-    new WPFDGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
+// if ( is_admin() ) {
+//     new WPFDGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
+// }
+if( ! class_exists( 'Smashing_Updater' ) ){
+	include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
 }
+
+$updater = new Smashing_Updater( __FILE__ );
+$updater->set_username( 'subratagoswami153' );
+$updater->set_repository( 'healthy-thingy-post-slides' );
+/*
+	$updater->authorize( 'abcdefghijk1234567890' ); // Your auth code goes here for private repos
+*/
+$updater->initialize();
