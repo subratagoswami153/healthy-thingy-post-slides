@@ -111,7 +111,7 @@
     }
 
     jQuery(document).ready(function () {
-        console.log('version 1.5.8');
+        console.log('version 1.5.9');
 
         if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.utm_exists == '1') {
             if (healthyThingyObj.post_style_mobile == 'long-form-scroll') {
