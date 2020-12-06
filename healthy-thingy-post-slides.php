@@ -30,6 +30,9 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+if ( ! defined( 'PU_PLUGIN_FILE' ) ) {
+	define( 'PU_PLUGIN_FILE', __FILE__ );
+}
 /**
  * Currently plugin version.
  * Start at version 1.0.0
