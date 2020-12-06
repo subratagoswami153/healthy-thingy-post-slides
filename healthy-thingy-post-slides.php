@@ -82,19 +82,7 @@ function run_healthy_thingy_post_slides() {
 }
 run_healthy_thingy_post_slides();
 
-// require_once( plugin_dir_path( __FILE__ ) . 'class-plugin-updater.php' );
-
-// if ( is_admin() ) {
-//     new WPFDGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
-// }
-if( ! class_exists( 'Smashing_Updater' ) ){
-	include_once( plugin_dir_path( __FILE__ ) . 'class-plugin-updater.php' );
+require_once( 'class-plugin-updater.php' );
+if ( is_admin() ) {
+    new BFIGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
 }
-
-$updater = new Smashing_Updater( __FILE__ );
-$updater->set_username( 'subratagoswami153' );
-$updater->set_repository( 'healthy-thingy-post-slides' );
-/*
-	$updater->authorize( 'abcdefghijk1234567890' ); // Your auth code goes here for private repos
-*/
-$updater->initialize();
