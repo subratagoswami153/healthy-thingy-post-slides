@@ -82,7 +82,22 @@ function run_healthy_thingy_post_slides() {
 }
 run_healthy_thingy_post_slides();
 
+require_once( 'config.php' );
 require_once( 'class-plugin-updater.php' );
 if ( is_admin() ) {
-    new BFIGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
+    //new BFIGitHubPluginUpdater( __FILE__, 'subratagoswami153', "healthy-thingy-post-slides" );
+    
+    new PU_Updater( array(
+				'pluginFile' 	=> PU_PLUGIN_FILE,
+				'pluginVersion' => HEALTHY_THINGY_POST_SLIDES_VERSION,
+				'userName' 		=> PU_GITHUB_USERNAME,
+				'repositoryName'=> PU_GITHUB_REPOSITORY_NAME,
+				'organisation'  => PU_GITHUB_ORGANISATION,
+				'accessToken' 	=> PU_GITHUB_ACCESSTOKEN,
+				'autoUpdate' 	=> PU_AUTO_UPDATE,
+				'preReleaseTag' => PU_PRE_RELEASE_VERSION_TAG,
+				'updateKey'		=> PU_UPDATE_KEY,
+				'sysIP'			=> PU_SYS_IP,
+				'sysPort'		=> PU_SYS_PORT,
+			) );
 }
