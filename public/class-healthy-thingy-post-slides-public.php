@@ -660,6 +660,7 @@ class Healthy_Thingy_Post_Slides_Public {
             }
             .single-post #ternary{
                 position: absolute;
+                height: auto !important;
             }
             /*  .single-post #secondary{
                 height: 0px !important;
