@@ -31,8 +31,11 @@ if (isset($_POST['save'])) {
     ];
     array_push($action_triggered_data, $action_triggered_ads_data);
     update_option('action_triggered_ads_settings', $action_triggered_ads_data);
+
     update_option('hide_previous_button', $_POST['hide_previous_button']);
     update_option('action_triggered_top_margin', $_POST['action_triggered_top_margin']);
+
+    update_option('next_prev_button_style_desktop', $_POST['next_prev_button_style_desktop']);
 }
 ?>
 <div id="ht-ads-settings">
@@ -50,6 +53,13 @@ if (isset($_POST['save'])) {
                 <th ><label for="hide-previous-button">Hide previous button for mobile :</label></th>
                 <td>
                     <input class="single_field" type="checkbox" value="1" <?php if(!empty(get_option('hide_previous_button'))) echo "checked='checked'"; ?> name="hide_previous_button"/>
+                </td>
+            </tr>
+
+            <tr class="ads_group_left">
+                <th ><label for="next-previous-button-desktop">Enable next & prev button style for desktop:</label></th>
+                <td>
+                    <input class="single_field" type="checkbox" value="1" <?php if(!empty(get_option('next_prev_button_style_desktop'))) echo "checked='checked'"; ?> name="next_prev_button_style_desktop"/>
                 </td>
             </tr>
 

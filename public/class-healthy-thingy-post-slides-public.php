@@ -135,6 +135,7 @@ class Healthy_Thingy_Post_Slides_Public {
                     'right_ads_layout' =>  Healthy_Thingy_Post_Slides_Admin::$right_ads_layout,
                     // 'ads_unit_for_action_trigger' =>  Healthy_Thingy_Post_Slides_Admin::$ads_unit_for_action_trigger,
                     'hide_prev_button' =>  Healthy_Thingy_Post_Slides_Admin::$hide_prev_button_mobile,
+                    'next_prev_button_style_desktop' =>  Healthy_Thingy_Post_Slides_Admin::$next_prev_button_style_desktop,
                     'current_page' => ($current_page!='')?$current_page:1,
                 ));  
 
@@ -741,9 +742,39 @@ class Healthy_Thingy_Post_Slides_Public {
                     padding-left: 0px !important;
                 }
           }
-        }
         </style>
       <?php }
+
+      if(!wp_is_mobile() && Healthy_Thingy_Post_Slides_Admin::$next_prev_button_style_desktop == '1'){ ?>
+        <style type="text/css">
+          @media only screen and (min-width: 992px) and (max-width: 2560px) {
+              .theiaPostSlider_nav.fontTheme ._buttons ._prev ._3 {
+                  display: none;
+              }
+              .theiaPostSlider_nav.fontTheme ._buttons ._next {
+                font-size: 30px !important;
+                  padding: 12px !important;
+                  padding-left: 28% !important;
+                  padding-right: 28% !important;
+              }
+              .theiaPostSlider_nav.fontTheme ._buttons ._prev {
+                  padding: 12px 8% !important;
+                  background-color: #101010 !important;
+              }
+              .single-post .theiaPostSlider_nav {
+                height: 120px;
+                padding-top: 30px;
+              }
+              .theiaPostSlider_nav ._buttons ._text {
+                position: absolute;
+                  margin: -45px 25%;
+              }
+              .post .entry-content .theiaPostSlider_nav ._buttons ._text a:hover{
+                text-decoration: none;
+              }
+          }
+        </style>
+    <?php }
   }
 
 

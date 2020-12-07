@@ -58,6 +58,7 @@ class Healthy_Thingy_Post_Slides_Admin {
     public static $right_ads_layout;
     // public static $ads_unit_for_action_trigger;
     public static $hide_prev_button_mobile;
+    public static $next_prev_button_style_desktop;
 
     public function __construct($plugin_name, $version) {
         $this->plugin_name = $plugin_name;
@@ -70,6 +71,7 @@ class Healthy_Thingy_Post_Slides_Admin {
         // add_action('init', array(&$this, 'test_cookie'));
         self::$total_pages = 2;
         self::$hide_prev_button_mobile = get_option('hide_previous_button');
+        self::$next_prev_button_style_desktop = get_option('next_prev_button_style_desktop');
     }
 
     /**
