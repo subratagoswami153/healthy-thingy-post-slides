@@ -725,10 +725,9 @@ class Healthy_Thingy_Post_Slides_Public {
               }
               .theiaPostSlider_nav.fontTheme ._buttons ._button {
                   padding: 12px !important;
-                  padding-left: 26% !important;
-                  padding-right: 26% !important;
-/*                  height: 110px !important;
-*/              }
+                  padding-left: 20% !important;
+                  padding-right: 20% !important;
+              }
               .theiaPostSlider_nav._center_full ._next {
                   float: none !important; 
                   float: none !important;
@@ -741,8 +740,20 @@ class Healthy_Thingy_Post_Slides_Public {
                     padding-right: 0px !important;
                     padding-left: 0px !important;
                 }
+                .theiaPostSlider_nav.fontTheme ._buttons ._next {
+                  font-size: 25px !important;
+                 }
           }
         </style>
+        <script type="text/javascript">
+          jQuery(document).ready(function(){
+            jQuery("#ternary").height('auto');
+            var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
+            if(nextTxt == 'Next'){
+              jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
+            }
+          });
+        </script>
       <?php }
 
       if(!wp_is_mobile() && Healthy_Thingy_Post_Slides_Admin::$next_prev_button_style_desktop == '1'){ ?>
@@ -774,6 +785,16 @@ class Healthy_Thingy_Post_Slides_Public {
               }
           }
         </style>
+
+        <script type="text/javascript">
+          jQuery(document).ready(function(){
+            jQuery("#ternary").height('auto');
+            var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
+            if(nextTxt == 'Next'){
+              jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
+            }
+          });
+        </script>
     <?php }
   }
 
