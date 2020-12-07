@@ -778,7 +778,7 @@ class Healthy_Thingy_Post_Slides_Public {
               }
               .theiaPostSlider_nav ._buttons ._text {
                 position: absolute;
-                  margin: -45px 25%;
+                  margin: -45px -14%;
               }
               .post .entry-content .theiaPostSlider_nav ._buttons ._text a:hover{
                 text-decoration: none;
