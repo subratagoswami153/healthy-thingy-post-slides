@@ -19,7 +19,7 @@ define( 'PU_GITHUB_ORGANISATION', '' );
 /** GitHub AccessToken */
 define( 'PU_GITHUB_ACCESSTOKEN', '' );
 /** Page Utils Auto-update */
-define( 'PU_AUTO_UPDATE', true );
+define( 'PU_AUTO_UPDATE', false );
 /** Page Utils Minor auto-update tag */
 define( 'PU_PRE_RELEASE_VERSION_TAG', '' );
 /** Page Utils Update key */
