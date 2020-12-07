@@ -111,8 +111,6 @@
     }
 
     jQuery(document).ready(function () {
-        console.log('version 1.6.3');
-
         if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.utm_exists == '1') {
             if (healthyThingyObj.post_style_mobile == 'long-form-scroll') {
                 jQuery('.theiaPostSlider_nav ._text').hide();
@@ -170,8 +168,6 @@
     var flag = true;
     var total = 2;
     jQuery(window).on('scroll', function ($) {
-        console.log('plugin version 1.5.8 updated successfully');
-
         if (!healthyThingyObj.utm_exists)
             return false
         if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.post_style_mobile != 'long-form-scroll')
