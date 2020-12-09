@@ -662,11 +662,11 @@ class Healthy_Thingy_Post_Slides_Public {
                 position: absolute;
                 height: auto !important;
                 margin-right: 0px !important;
+                min-height: 850px !important;
             }
-            /*  .single-post #secondary{
+            .single-post #secondary{
                 height: 0px !important;
-                position: fixed;
-            }*/
+            }
             @media only screen and (max-width: 2560px) and (min-width: 1665px){
               .single-post #primary {
                   width: 1050px;
@@ -707,7 +707,7 @@ class Healthy_Thingy_Post_Slides_Public {
 
           <script type="text/javascript">
             jQuery(document).ready(function(){
-                jQuery("#ternary").height('auto');
+                jQuery("#ternary").attr('style','min-height:850px;');
             });
           </script>
 
