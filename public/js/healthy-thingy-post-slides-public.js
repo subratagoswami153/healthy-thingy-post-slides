@@ -102,7 +102,7 @@
                     // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
                     // jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
                     
-                    jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
+                    jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 0px; width: 300px; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
 
                 }
                 /*  End  Process ads ajax */
