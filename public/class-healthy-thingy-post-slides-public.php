@@ -658,7 +658,7 @@ class Healthy_Thingy_Post_Slides_Public {
             .ads-padding-top-120{
               margin-top: <?php echo (get_option('action_triggered_top_margin') != '')?get_option('action_triggered_top_margin'):'150px'; ?>;
             }
-            /*.single-post #ternary{
+            .single-post #ternary{
                 position: absolute;
                 height: auto !important;
                 margin-right: 0px !important;
@@ -701,15 +701,15 @@ class Healthy_Thingy_Post_Slides_Public {
                   width: 1050px;
 				          float: left;
               }   
-            }*/
+            }
 
           </style>
 
-        <!--   <script type="text/javascript">
+          <script type="text/javascript">
             jQuery(document).ready(function(){
                 jQuery("#ternary").attr('style','min-height:850px;');
             });
-          </script> -->
+          </script>
 
 
         <?php }
