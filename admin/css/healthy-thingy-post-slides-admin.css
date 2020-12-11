@@ -246,3 +246,6 @@
 .qty_field{
     display: none;
 }
+.fixed-content-ajax{
+    display: none;
+}

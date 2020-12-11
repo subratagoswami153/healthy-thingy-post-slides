@@ -6,6 +6,7 @@ jQuery(document).ready(function ($) {
 
             // for lower
             jQuery('#tps_nav_lower_' + healthyThingyObj.current_post).find('a._next').addClass('load_next_content');
+            jQuery('#tps_nav_lower_' + healthyThingyObj.current_post).find('a._next').find('._1').text('Next');
         }
 
 
@@ -18,6 +19,7 @@ jQuery(document).ready(function ($) {
         $('div._loading').remove();
         if (!last_elem.nextAll().hasClass('p-none')) {
             $(this).removeClass('load_next_content');
+            $(this).find('._1').text('Next Post');
         }
     });
 });
