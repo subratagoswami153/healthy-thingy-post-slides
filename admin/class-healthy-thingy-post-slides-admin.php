@@ -290,14 +290,24 @@ class Healthy_Thingy_Post_Slides_Admin {
 
         if ($style == 'long-form-fixed') {
 
-            if ($first_slides == 'yes') {
+            /*if ($first_slides == 'yes') {
                 for ($i = 0; $i < $quantity - 1; $i++) {
                     array_splice($pages, 1, 0, array(' '));
                 }
             } else {
                 // array_shift($pages);
+            }*/
+            
+            //$pages = $this->page_break_pagination($pages, count($pages));
+            $post_content_html = [];
+            foreach ($pages as $key=>$p_co){
+                $class = 'p-show';
+                if($key>$quantity)
+                    $class = 'p-none';
+                $post_content_html[0] .= '<div class="'.$class.'">'.$p_co.'</div>';
             }
-            $pages = $this->page_break_pagination($pages, $quantity);
+            $pages = $post_content_html;
+            
         }
         if ($style == 'long-form-scroll') {
 

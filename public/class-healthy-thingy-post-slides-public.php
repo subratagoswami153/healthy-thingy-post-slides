@@ -114,6 +114,7 @@ class Healthy_Thingy_Post_Slides_Public {
                 $current_page = $wp_query->query['page'];
                 Healthy_Thingy_Post_Slides_Admin::initialize_attribute();
 		wp_enqueue_script( $this->plugin_name.'public-js', plugin_dir_url( __FILE__ ) . 'js/healthy-thingy-post-slides-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'new-mobile-public-js', plugin_dir_url( __FILE__ ) . 'js/new-mobile-public.js', array( 'jquery' ), $this->version, false );
 
                 wp_localize_script($this->plugin_name.'public-js', 'healthyThingyObj', array(
                    'ajax_url' => admin_url('admin-ajax.php'),
