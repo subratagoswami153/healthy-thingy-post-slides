@@ -113,6 +113,15 @@ if(isset($each_data['contains'])){
                     </select>
                 </td>
             </tr>
+            <tr class="fixed-content-ajax" style="display:<?php echo ((isset($each_data['layout']) && ($each_data['layout'] == 'long-form-fixed'))) ? 'table-row' : ''; ?>">
+                <th ><label for="fixed_content_ajax">Load content using ajax :</label></th>
+                <td>
+                    <select class="single_field" name="data[1][fixed_content_ajax][]">
+                        <option value="yes" <?php echo (isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax'] == 'yes') ? 'selected' : ''; ?>>Yes</option>
+                        <option value="no" <?php echo (isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax'] == 'no') ? 'selected' : ''; ?>>No</option>
+                    </select>
+                </td>
+            </tr>
             <tr class="left-ads-layout" style="">
                 <th ><label for="left-ads-layout">Choose left ads lauout :</label></th>
                 <td>
@@ -133,12 +142,12 @@ if(isset($each_data['contains'])){
                     </select>
                 </td>
             </tr>
-<!--             <tr class="ads-unit-for-action-trigger" >
-                <th ><label for="ads-unit-for-action-trigger">Ads Unit For Action Trigger :</label></th>
+             <tr class="ads-unit-for-action-trigger" >
+                <th ><label for="ads-unit-for-action-trigger">Ads quantity :</label></th>
                 <td>
-                    <input class="single_field" type="text" value="<?php //echo (isset($each_data['ads_unit_for_action_trigger'])) ? $each_data['ads_unit_for_action_trigger'] : '2'; ?>" name="data[1][ads_unit_for_action_trigger][]" placeholder="Ads unit for action trigger"/>
+                    <input class="single_field" type="text" value="<?php echo (isset($each_data['ads_unit_for_action_trigger'])) ? $each_data['ads_unit_for_action_trigger'] : '2'; ?>" name="data[1][ads_unit_for_action_trigger][]" placeholder="Ads quantity"/>
                 </td>
-            </tr> -->
+            </tr> 
             <tr>
                 <th ></th>
                 <td>

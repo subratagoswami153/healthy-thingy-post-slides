@@ -96,8 +96,10 @@ jQuery(document).ready(function ($) {
                 this_table.find('.qty_field').show();
                 if(current_layout == 'long-form-fixed'){
                     this_table.find('.first-slide').show();
+                    this_table.find('.fixed-content-ajax').show();
                 }else{
                     this_table.find('.first-slide').hide();
+                    this_table.find('.fixed-content-ajax').hide();
                     this_table.find('.first-image').show();
                 }
                     
@@ -105,6 +107,7 @@ jQuery(document).ready(function ($) {
                 this_table.find('.qty_field').hide();
                 this_table.find('.first-slide').hide();
                 this_table.find('.first-image').hide();
+                this_table.find('.fixed-content-ajax').hide();
             }
         });
         
