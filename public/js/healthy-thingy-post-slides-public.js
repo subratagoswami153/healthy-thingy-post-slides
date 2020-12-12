@@ -82,7 +82,6 @@
         });
     }
 
-
     function action_triggered_ads_load_right(){
         var device_width = jQuery(window).width();
 
@@ -102,13 +101,94 @@
                     // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
                     // jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
                     
-                    jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 0px; width: 300px; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
+                    jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
 
                 }
                 /*  End  Process ads ajax */
             }
         });
     }
+    //default ads custom
+
+    function default_ads_load_left(){
+        var device_width = jQuery(window).width();
+
+        jQuery.ajax({
+            url: healthyThingyObj.ajax_url,
+            type: 'post',
+            data: {action: "action_triggered_ads" },
+            dataType: 'json',
+            success: function (response) {
+                /*   Process ads ajax */
+                if (response[0]) {
+                    var action_triggeres_ads_left = response[0]['left_ads'];
+                    // var action_triggeres_ads_right = response[0]['right_ads'];
+
+                    jQuery('.single-post #ternary div').html('');
+                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
+                    jQuery('.single-post #ternary').html(`<aside class=" widget popli-widget clearfix">`+action_triggeres_ads_left+`</aside>`);
+                    
+                    // jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
+
+                }
+                /*  End  Process ads ajax */
+            }
+        });
+    }
+
+    function default_ads_load_left_append(){
+        var device_width = jQuery(window).width();
+
+        jQuery.ajax({
+            url: healthyThingyObj.ajax_url,
+            type: 'post',
+            data: {action: "action_triggered_ads" },
+            dataType: 'json',
+            success: function (response) {
+                /*   Process ads ajax */
+                if (response[0]) {
+                    var action_triggeres_ads_left = response[0]['left_ads'];
+                    // var action_triggeres_ads_right = response[0]['right_ads'];
+
+                    // jQuery('.single-post #ternary div').html('');
+                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
+                    jQuery('.single-post #ternary').append(`<aside class=" widget popli-widget clearfix">`+action_triggeres_ads_left+`</aside>`);
+                    
+                    // jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
+
+                }
+                /*  End  Process ads ajax */
+            }
+        });
+    }
+
+    function default_ads_load_right(){
+        var device_width = jQuery(window).width();
+
+        jQuery.ajax({
+            url: healthyThingyObj.ajax_url,
+            type: 'post',
+            data: {action: "action_triggered_ads" },
+            dataType: 'json',
+            success: function (response) {
+                /*   Process ads ajax */
+                if (response[0]) {
+                    // var action_triggeres_ads_left = response[0]['left_ads'];
+                    var action_triggeres_ads_right = response[0]['right_ads'];
+
+                    // jQuery('.single-post #ternary div, #secondary div').html('');
+                    jQuery('.single-post #secondary div').html('');
+                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
+                    // jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
+                    
+                    jQuery('.single-post #secondary').append(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="">`+action_triggeres_ads_right+`</aside>`);
+
+                }
+                /*  End  Process ads ajax */
+            }
+        });
+    }
+
 
     jQuery(document).ready(function () {
         if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.utm_exists == '1') {
@@ -302,26 +382,34 @@
     });
 
     jQuery(document).ready(function(){
+        var l;
         var device_width = jQuery(window).width();
         if(healthyThingyObj.is_mobile == ''){
             if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                 action_triggered_ads_load();
-            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads'){
+            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
                 action_triggered_ads_load_left();
-            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
+                default_ads_load_right();
+            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
                 action_triggered_ads_load_right();
+                jQuery('.single-post #ternary div').html('');
+                for(l=0; l<2;l++){
+                    default_ads_load_left_append();
+                }
             }
         }
     })
 
     jQuery(window).resize(function() { 
-         if(healthyThingyObj.is_mobile == ''){
+        if(healthyThingyObj.is_mobile == ''){
             if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                 action_triggered_ads_load();
-            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads'){
+            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
                 action_triggered_ads_load_left();
-            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
+                default_ads_load_right();
+            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
                 action_triggered_ads_load_right();
+                default_ads_load_left();
             }
         }
     }); 
@@ -355,15 +443,34 @@ jQuery(window).scroll(function(event){
                 if(healthyThingyObj.is_mobile == '' && firedEvents.length >= 1){
                     if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                         action_triggered_ads_load();
-                    }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads'){
+                    }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
                         action_triggered_ads_load_left();
-                    }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
+                        default_ads_load_right();
+                    }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
                         action_triggered_ads_load_right();
+                        // default_ads_load_left_append();
                     }
                 }
             }
 
         });
+
+        if (jQuery(window).scrollTop() > jQuery('#ternary div:last').offset().top) {
+            console.log('up');
+            if(healthyThingyObj.is_mobile == ''){
+                if(healthyThingyObj.right_ads_layout == 'default-ads'){
+
+                }else if(healthyThingyObj.left_ads_layout == 'default-ads'){
+                     // jQuery("#ternary aside").each(function() { 
+                    jQuery('#ternary aside:last').css('position', 'fixed');
+                    jQuery('#ternary aside:last').css('top', '0px');
+                    jQuery('#ternary aside:last').css('width', '300px');
+                    // });
+                }
+            }
+        }
+// top: 0px; width: 300px; position: fixed;
+
         //scroll native ads refresh
         jQuery(".theiaPostSlider_footer, .ctx-article-root").each(function() {
             if (!firedEventsFooter.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {
@@ -394,6 +501,37 @@ jQuery(window).scroll(function(event){
 
     //when scroll up
     }else {
+        // jQuery('#ternary:nth-last-child(2)').is(":visible"){
+        //     if(healthyThingyObj.is_mobile == ''){
+        //         if(healthyThingyObj.right_ads_layout == 'default-ads'){
+
+        //         }else if(healthyThingyObj.left_ads_layout == 'default-ads'){
+        //              jQuery("#ternary aside").each(function() { 
+        //                 jQuery('#ternary aside').css('position', '');
+        //             });
+        //         }
+        //     }
+        // }
+        // #ternary:nth-last-child(2)
+        // if($("p").is(":visible")){
+        var distance = jQuery('#ternary aside:last').offset().top - jQuery('#ternary aside:nth-last-child(2)').offset().top;
+        console.log(distance);
+        if (jQuery(window).scrollTop() < jQuery('#ternary div:last').offset().top) {
+            console.log('down');
+            if(healthyThingyObj.is_mobile == ''){
+                if(healthyThingyObj.right_ads_layout == 'default-ads'){
+
+                }else if(healthyThingyObj.left_ads_layout == 'default-ads'){
+
+                    if(distance<500){
+                        jQuery("#ternary aside").each(function() { 
+                            jQuery('#ternary aside').css('position', '');
+                        });
+                    }
+                    
+                }
+            }
+        }
         //for body section ads refresh
         // firedEventsBack = [];
         jQuery("figure").each(function() {
@@ -415,6 +553,8 @@ jQuery(window).scroll(function(event){
   if (jQuery(this).scrollTop()  <= 50 ){
       firedEvents = [];
   }
+
+
 });
 
 
