@@ -28,6 +28,7 @@
      * Although scripts in the WordPress core, Plugins and Themes may be
      * practising this, we should strive to set a better example in our own work.
      */
+     //bot side action triggeres
     function action_triggered_ads_load(){
         var device_width = jQuery(window).width();
 
@@ -56,6 +57,7 @@
             });
 
     }
+    //left rail acction triggered
     function action_triggered_ads_load_left(){
         var device_width = jQuery(window).width();
 
@@ -81,7 +83,7 @@
             }
         });
     }
-
+    //right rail action triggered
     function action_triggered_ads_load_right(){
         var device_width = jQuery(window).width();
 
@@ -102,17 +104,13 @@
                     // jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
                     
                     jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
-
                 }
                 /*  End  Process ads ajax */
             }
         });
     }
-    //default ads custom
-
+    //left rail custom deefault ads
     function default_ads_load_left(){
-        var device_width = jQuery(window).width();
-
         jQuery.ajax({
             url: healthyThingyObj.ajax_url,
             type: 'post',
@@ -122,23 +120,15 @@
                 /*   Process ads ajax */
                 if (response[0]) {
                     var action_triggeres_ads_left = response[0]['left_ads'];
-                    // var action_triggeres_ads_right = response[0]['right_ads'];
-
                     jQuery('.single-post #ternary div').html('');
-                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
                     jQuery('.single-post #ternary').html(`<aside class=" widget popli-widget clearfix">`+action_triggeres_ads_left+`</aside>`);
-                    
-                    // jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
-
                 }
                 /*  End  Process ads ajax */
             }
         });
     }
-
+    //left rail custom default ad append
     function default_ads_load_left_append(){
-        var device_width = jQuery(window).width();
-
         jQuery.ajax({
             url: healthyThingyObj.ajax_url,
             type: 'post',
@@ -148,23 +138,14 @@
                 /*   Process ads ajax */
                 if (response[0]) {
                     var action_triggeres_ads_left = response[0]['left_ads'];
-                    // var action_triggeres_ads_right = response[0]['right_ads'];
-
-                    // jQuery('.single-post #ternary div').html('');
-                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
                     jQuery('.single-post #ternary').append(`<aside class=" widget popli-widget clearfix">`+action_triggeres_ads_left+`</aside>`);
-                    
-                    // jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
-
                 }
                 /*  End  Process ads ajax */
             }
         });
     }
-
+    //right default ads add
     function default_ads_load_right(){
-        var device_width = jQuery(window).width();
-
         jQuery.ajax({
             url: healthyThingyObj.ajax_url,
             type: 'post',
@@ -173,23 +154,15 @@
             success: function (response) {
                 /*   Process ads ajax */
                 if (response[0]) {
-                    // var action_triggeres_ads_left = response[0]['left_ads'];
                     var action_triggeres_ads_right = response[0]['right_ads'];
-
-                    // jQuery('.single-post #ternary div, #secondary div').html('');
-                    jQuery('.single-post #secondary div').html('');
-                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
-                    // jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
-                    
+                    jQuery('.single-post #secondary div').html('');                    
                     jQuery('.single-post #secondary').append(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="">`+action_triggeres_ads_right+`</aside>`);
-
                 }
                 /*  End  Process ads ajax */
             }
         });
     }
-
-
+    //
     jQuery(document).ready(function () {
         if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.utm_exists == '1') {
             if (healthyThingyObj.post_style_mobile == 'long-form-scroll') {
@@ -238,11 +211,8 @@
                   }
                 });
             }
-        // }, 3000);
-      
+        // }, 3000);      
     });
-
-
 
     var timeout;
     var flag = true;
@@ -278,7 +248,6 @@
                             total = parseInt(response.total);
                         }
 
-
                         jQuery('.theiaPostSlider_preloadedSlide').append(response.html);
                         /*   Process ads ajax */
                         if (response.ads_response) {
@@ -292,26 +261,23 @@
                         if (response.ads_response_sidebar[0]) {
                             var j;
                             // for (i = 0; i < response.ads_response_sidebar[0]length; i++) {
-                                var ads_sidebar = response.ads_response_sidebar[0];
-                                if(ads_sidebar.enable_ads == 'left'){
-                                    for(j=0; j<healthyThingyObj.desktop_qty; j++){
-                                        jQuery('#ternary').append(ads_sidebar.left_ads);
-                                    }  
-                                }else if(ads_sidebar.enable_ads == 'right'){
-                                    for(j=0; j<healthyThingyObj.desktop_qty; j++){
-                                        jQuery('#secondary').append(ads_sidebar.right_ads);
-                                    }
-                                }else if(ads_sidebar.enable_ads == 'both'){
-                                    for(j=0; j<healthyThingyObj.desktop_qty; j++){
-                                        jQuery('#ternary').append(ads_sidebar.left_ads);
-                                        jQuery('#secondary').append(ads_sidebar.right_ads);
-                                    }
+                            var ads_sidebar = response.ads_response_sidebar[0];
+                            if(ads_sidebar.enable_ads == 'left'){
+                                for(j=0; j<healthyThingyObj.desktop_qty; j++){
+                                    jQuery('#ternary').append(ads_sidebar.left_ads);
+                                }  
+                            }else if(ads_sidebar.enable_ads == 'right'){
+                                for(j=0; j<healthyThingyObj.desktop_qty; j++){
+                                    jQuery('#secondary').append(ads_sidebar.right_ads);
                                 }
-    
+                            }else if(ads_sidebar.enable_ads == 'both'){
+                                for(j=0; j<healthyThingyObj.desktop_qty; j++){
+                                    jQuery('#ternary').append(ads_sidebar.left_ads);
+                                    jQuery('#secondary').append(ads_sidebar.right_ads);
+                                }
+                            }
                         }
-                        
                         /*  End  Process ads ajax */
-
                         jQuery(".popli-left-rail-top").each(function() {  
                           var ads_height = jQuery(this).height();
                           if(ads_height <= 300){
@@ -324,6 +290,7 @@
 
                 });
                 flag = false;
+                //on ajax complete
                 jQuery(document).ajaxComplete(function (event, request, settings) {
                     flag = true;
                     // remove wp-has-aspect-ration from figure
@@ -337,7 +304,6 @@
         }, 50);
 
     });
-
 
     jQuery(document).ready(function ($) {
         // var device_width = jQuery(window).width();
@@ -435,9 +401,7 @@ jQuery(window).scroll(function(event){
     if (st > lastScrollTop){
         //for br tag
         jQuery("br").each(function() {
-            if (!firedEvents.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {
-                // console.log(jQuery(window).scrollTop() + '/' + jQuery(this).offset().top);
-                
+            if (!firedEvents.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {                
                 firedEvents.push(this);
             
                 if(healthyThingyObj.is_mobile == '' && firedEvents.length >= 1){
@@ -452,9 +416,8 @@ jQuery(window).scroll(function(event){
                     }
                 }
             }
-
         });
-
+        //fixed last ad inside ternary
         if (jQuery(window).scrollTop() > jQuery('#ternary div:last').offset().top) {
             console.log('up');
             if(healthyThingyObj.is_mobile == ''){
@@ -469,21 +432,11 @@ jQuery(window).scroll(function(event){
                 }
             }
         }
-// top: 0px; width: 300px; position: fixed;
 
         //scroll native ads refresh
         jQuery(".theiaPostSlider_footer, .ctx-article-root").each(function() {
             if (!firedEventsFooter.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {
-                // console.log(jQuery(window).scrollTop() + '/' + jQuery(this).offset().top);
                 firedEventsFooter.push(this);
-            
-                // var device_width = jQuery(window).width();
-                // if ( && healthyThingyObj.left_ads_layout == 'action-triggered-ads' ){
-                //     action_triggered_ads_load();
-                // }else if(){
-
-                // }
-
                 if(healthyThingyObj.is_mobile == '' && firedEvents.length >= 1){
                     if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                         action_triggered_ads_load();
@@ -497,23 +450,10 @@ jQuery(window).scroll(function(event){
         });
 
     firedEventsBack = [];
-    // firedEventsBack = [];
 
     //when scroll up
     }else {
-        // jQuery('#ternary:nth-last-child(2)').is(":visible"){
-        //     if(healthyThingyObj.is_mobile == ''){
-        //         if(healthyThingyObj.right_ads_layout == 'default-ads'){
-
-        //         }else if(healthyThingyObj.left_ads_layout == 'default-ads'){
-        //              jQuery("#ternary aside").each(function() { 
-        //                 jQuery('#ternary aside').css('position', '');
-        //             });
-        //         }
-        //     }
-        // }
-        // #ternary:nth-last-child(2)
-        // if($("p").is(":visible")){
+        //check distance between last 2 ads for default ad 
         var distance = jQuery('#ternary aside:last').offset().top - jQuery('#ternary aside:nth-last-child(2)').offset().top;
         console.log(distance);
         if (jQuery(window).scrollTop() < jQuery('#ternary div:last').offset().top) {
@@ -527,27 +467,19 @@ jQuery(window).scroll(function(event){
                         jQuery("#ternary aside").each(function() { 
                             jQuery('#ternary aside').css('position', '');
                         });
-                    }
-                    
+                    } 
                 }
             }
         }
-        //for body section ads refresh
-        // firedEventsBack = [];
+        //for reset each content when scroll up
         jQuery("figure").each(function() {
-            // console.log(jQuery(window).scrollTop() + '/' +bottom);
             if(!firedEventsBack.includes(this) && bottom > jQuery(this).offset().top){
-                // if(firedEvents.includes(this)){
                     firedEvents.pop();
-                // }
-                // console.log(firedEvents);
                 firedEventsBack.push(this);
                 console.log(firedEventsBack);
             }
         });
     }
-
-
 
   lastScrollTop = st;
   if (jQuery(this).scrollTop()  <= 50 ){
@@ -556,7 +488,5 @@ jQuery(window).scroll(function(event){
 
 
 });
-
-
 
 })(jQuery);

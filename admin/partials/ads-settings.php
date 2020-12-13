@@ -5,6 +5,7 @@ if (isset($_POST['save'])) {
     $data = [];
     $sidebar_data = [];
     $action_triggered_data = [];
+    $default_data = [];
     $ads_settings = $_POST['ad_group_id'];
     
     foreach ($ads_settings as $key => $ads_setting) {
@@ -16,13 +17,13 @@ if (isset($_POST['save'])) {
     }
     update_option('ht_ads_settings', $data);
 
-    $sidebar_ads_data = [
-        'left_ads_id' => trim(stripslashes($_POST['left_ad_group_id'])),
-        'right_ads_id' => trim(stripslashes($_POST['right_ad_group_id'])),
-        'sidebar_enable_ads' => $_POST['enable_infinite_scroll'],
-    ];
-    array_push($sidebar_data, $sidebar_ads_data);
-    update_option('sidebar_ads_settings', $sidebar_data);
+    // $sidebar_ads_data = [
+    //     'left_ads_id' => trim(stripslashes($_POST['left_ad_group_id'])),
+    //     'right_ads_id' => trim(stripslashes($_POST['right_ad_group_id'])),
+    //     'sidebar_enable_ads' => $_POST['enable_infinite_scroll'],
+    // ];
+    // array_push($sidebar_data, $sidebar_ads_data);
+    // update_option('sidebar_ads_settings', $sidebar_data);
 
     //save action triggered ads settings
     $action_triggered_ads_data = [
@@ -31,17 +32,26 @@ if (isset($_POST['save'])) {
     ];
     array_push($action_triggered_data, $action_triggered_ads_data);
     update_option('action_triggered_ads_settings', $action_triggered_ads_data);
+    //save default ads settings
+    $default_ads_data = [
+        'left_ads_id' => trim(stripslashes($_POST['default_left_ad_group_id'])),
+        'right_ads_id' => trim(stripslashes($_POST['default_right_ad_group_id'])),
+    ];
+    array_push($default_data, $default_ads_data);
+    update_option('default_ads_settings', $default_ads_data);
 
     update_option('hide_previous_button', $_POST['hide_previous_button']);
     update_option('action_triggered_top_margin', $_POST['action_triggered_top_margin']);
 
     update_option('next_prev_button_style_desktop', $_POST['next_prev_button_style_desktop']);
+    update_option('sidebar_default_fixed_ads', $_POST['sidebar_default_fixed_ads']);
 }
 ?>
 <div id="ht-ads-settings">
     <?php 
     $ads_data = get_option('ht_ads_settings'); 
     $sidebar_ads_data = get_option('sidebar_ads_settings');
+    $default_ads_data = get_option('default_ads_settings');
     $action_triggered_ads_data = get_option('action_triggered_ads_settings');
 
     ?>
@@ -64,26 +74,26 @@ if (isset($_POST['save'])) {
             </tr>
 
             <tr class="ads_group_left">
-                <th ><label for="hide-previous-button">Top margin for action triggered ads:</label></th>
+                <th ><label for="hide-previous-button">Top margin for left and right ads:</label></th>
                 <td>
                     <input class="single_field" type="text" value="<?php echo (get_option('action_triggered_top_margin') != '')?get_option('action_triggered_top_margin'):'150px'; ?>" name="action_triggered_top_margin"/>
                 </td>
             </tr>
         </table>    
         <!-- on demand ads settings -->
-        <h2>On demand ads settings</h2>
+<!--         <h2>On demand ads settings</h2>
         <table>
             <tr class="ads_group_left">
                 <th ><label for="left_ads_group_id">Ads group ID for Left rail :</label></th>
                 <td>
-                    <input class="single_field" type="text" value="<?php echo ($sidebar_ads_data[0]['left_ads_id'] != '')?$sidebar_ads_data[0]['left_ads_id']:'' ;?>" name="left_ad_group_id" placeholder="Ads group ID for left rail"/>
+                    <input class="single_field" type="text" value="<?php //echo ($sidebar_ads_data[0]['left_ads_id'] != '')?$sidebar_ads_data[0]['left_ads_id']:'' ;?>" name="left_ad_group_id" placeholder="Ads group ID for left rail"/>
                 </td>
             </tr>
 
             <tr class="ads_group_right">
                 <th ><label for="right_ads_group_id">Ads group ID for right rail :</label></th>
                 <td>
-                    <input class="single_field" type="text" value="<?php echo ($sidebar_ads_data[0]['right_ads_id'] != '')?$sidebar_ads_data[0]['right_ads_id']:'' ;?>" name="right_ad_group_id" placeholder="Ads group ID for right rail"/>
+                    <input class="single_field" type="text" value="<?php //echo ($sidebar_ads_data[0]['right_ads_id'] != '')?$sidebar_ads_data[0]['right_ads_id']:'' ;?>" name="right_ad_group_id" placeholder="Ads group ID for right rail"/>
                 </td>
             </tr>
 
@@ -92,14 +102,14 @@ if (isset($_POST['save'])) {
                 <th ><label for="right_left_enable_infinite_scroll">Enable infinite scroll ads for:</label></th>
                 <td>
                     <select class="single_field"  name="enable_infinite_scroll">
-                        <option value="left" <?php echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'left') ? 'selected' : ''; ?>>Left rails</option>
-                        <option value="right" <?php echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'right') ? 'selected' : ''; ?>>Right rails</option>
-                        <option value="both" <?php echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'both') ? 'selected' : ''; ?>>Both side</option>
-                        <option value="none" <?php echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'none') ? 'selected' : ''; ?>>None</option>
+                        <option value="left" <?php //echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'left') ? 'selected' : ''; ?>>Left rails</option>
+                        <option value="right" <?php //echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'right') ? 'selected' : ''; ?>>Right rails</option>
+                        <option value="both" <?php //echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'both') ? 'selected' : ''; ?>>Both side</option>
+                        <option value="none" <?php// echo ($sidebar_ads_data[0]['sidebar_enable_ads'] == 'none') ? 'selected' : ''; ?>>None</option>
                     </select>
                 </td>
             </tr>
-        </table>
+        </table> -->
         <!-- action triggered ads settings -->
         <h2>Action triggered ads settings</h2>
         <table>
@@ -117,7 +127,30 @@ if (isset($_POST['save'])) {
                 </td>
             </tr>
         </table>
+        <!-- on demand ads settings -->
+        <h2>Default ads settings</h2>
+        <table>
+            <tr class="ads_group_left">
+                <th ><label for="left_ads_group_id">Ads group ID for Left rail :</label></th>
+                <td>
+                    <input class="single_field" type="text" value="<?php echo ($default_ads_data['left_ads_id'] != '')?$default_ads_data['left_ads_id']:'' ;?>" name="default_left_ad_group_id" placeholder="Ads group ID for left rail"/>
+                </td>
+            </tr>
 
+            <tr class="ads_group_right">
+                <th ><label for="right_ads_group_id">Ads group ID for right rail :</label></th>
+                <td>
+                    <input class="single_field" type="text" value="<?php echo ($default_ads_data['right_ads_id'] != '')?$default_ads_data['right_ads_id']:'' ;?>" name="default_right_ad_group_id" placeholder="Ads group ID for right rail"/>
+                </td>
+            </tr>
+
+            <tr class="ads_group_left">
+                <th ><label for="hide-previous-button">Fixed last ad :</label></th>
+                <td>
+                    <input class="single_field" type="checkbox" value="1" <?php if(!empty(get_option('sidebar_default_fixed_ads'))) echo "checked='checked'"; ?> name="sidebar_default_fixed_ads"/>
+                </td>
+            </tr>
+        </table>
         <div class="table-wrapper">
             <div class="accordion-container set-container">
                 <h2>Ads Settings</h2>
