@@ -14,12 +14,16 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.load_next_content', function (e) {
         e.preventDefault();
         var last_elem = $('.p-show').last();
-        last_elem.nextAll(':lt( '+healthyThingyObj.mobile_qty+' )').removeClass('p-none').addClass('p-show');
+        last_elem.nextAll(':lt( '+healthyThingyObj.layout_qty_ajax+' )').removeClass('p-none').addClass('p-show');
         $(this).removeClass('_disabled');
         $('div._loading').remove();
         if (!last_elem.nextAll().hasClass('p-none')) {
             $(this).removeClass('load_next_content');
             $(this).find('._1').text('Next Post');
         }
+    });
+
+    $(document).ready(function(){
+        $(window).scrollTop(0);
     });
 });

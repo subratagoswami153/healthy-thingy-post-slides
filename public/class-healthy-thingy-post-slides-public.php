@@ -50,6 +50,8 @@ class Healthy_Thingy_Post_Slides_Public {
 
         add_action('wp_ajax_action_triggered_ads', array($this, 'action_triggered_ads_sidebar'));
         add_action('wp_ajax_nopriv_action_triggered_ads', array($this, 'action_triggered_ads_sidebar'));
+        add_action('wp_ajax_default_ads_sidebar', array($this, 'default_ads_sidebar'));
+        add_action('wp_ajax_nopriv_default_ads_sidebar', array($this, 'default_ads_sidebar'));
 
         add_action('wp_ajax_on_demand_ads_sidebar', array($this, 'on_demand_ads_sidebar'));
         add_action('wp_ajax_nopriv_on_demand_ads_sidebar', array($this, 'on_demand_ads_sidebar'));
@@ -131,14 +133,16 @@ class Healthy_Thingy_Post_Slides_Public {
             'mobile_first_slide' => Healthy_Thingy_Post_Slides_Admin::$mobile_first_slide,
             'desktop_first_image' => Healthy_Thingy_Post_Slides_Admin::$desktop_first_image,
             'mobile_first_image' => Healthy_Thingy_Post_Slides_Admin::$mobile_first_image,
+            'fixed_content_ajax' => Healthy_Thingy_Post_Slides_Admin::$mobile_fixed_content_ajax,
+            'layout_qty_ajax' => Healthy_Thingy_Post_Slides_Admin::$layout_qty_ajax,
             'left_ads_layout' => Healthy_Thingy_Post_Slides_Admin::$left_ads_layout,
             'right_ads_layout' => Healthy_Thingy_Post_Slides_Admin::$right_ads_layout,
             'ads_unit_for_action_trigger' => Healthy_Thingy_Post_Slides_Admin::$ads_unit_for_action_trigger,
             'hide_prev_button' => Healthy_Thingy_Post_Slides_Admin::$hide_prev_button_mobile,
             'next_prev_button_style_desktop' => Healthy_Thingy_Post_Slides_Admin::$next_prev_button_style_desktop,
+            'fixed_last_ad' => get_option('sidebar_default_fixed_ads'),
             'current_page' => ($current_page != '') ? $current_page : 1,
         ));
-
         // print_r($post);($current_page!='')?$current_page:1; 
     }
 
@@ -297,6 +301,20 @@ class Healthy_Thingy_Post_Slides_Public {
         // return $data;
     }
 
+    //default ads ajax
+    public function default_ads_sidebar() {
+        $data = [];
+        $default_ads = get_option('default_ads_settings');
+
+        $item['left_ads'] = get_ad_group($default_ads['left_ads_id']);
+        $item['right_ads'] = get_ad_group($default_ads['right_ads_id']);
+
+        $data[] = $item;
+        echo json_encode($data);
+        exit();
+        // return $data;
+    }
+
     //on demand ads layout
     public function on_demand_ads_sidebar() {
         $data = [];
@@ -369,9 +387,9 @@ class Healthy_Thingy_Post_Slides_Public {
         }
     }
 
-    public function test_function() {
-        print_r(dynamic_sidebar('colormag_right_sidebar'));
-    }
+    // public function test_function() {
+    //     print_r(dynamic_sidebar('colormag_right_sidebar'));
+    // }
 
 // || (Healthy_Thingy_Post_Slides_Admin::$left_ads_layout == 'default-ads' && Healthy_Thingy_Post_Slides_Admin::$right_ads_layout == 'action-triggered-ads')
 // || (Healthy_Thingy_Post_Slides_Admin::$left_ads_layout == 'default-ads' && Healthy_Thingy_Post_Slides_Admin::$right_ads_layout == 'action-triggered-ads')
@@ -748,8 +766,12 @@ class Healthy_Thingy_Post_Slides_Public {
                 jQuery(document).ready(function () {
                     jQuery("#ternary").height('auto');
                     var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
-                    if (nextTxt == 'Next') {
-                        jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
+                    if (nextTxt == 'Next'){
+                        if(healthyThingyObj.post_style_mobile != 'long-form-fixed'){
+                            jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
+                        }else if(healthyThingyObj.fixed_content_ajax == 'yes' && healthyThingyObj.post_style_mobile == 'long-form-fixed'){
+                            jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>See more</span>");
+                        }
                     }
                 });
             </script>

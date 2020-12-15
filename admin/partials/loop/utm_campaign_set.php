@@ -122,6 +122,12 @@ if(isset($each_data['contains'])){
                     </select>
                 </td>
             </tr>
+            <tr class="qty_field_ajax" style="display:<?php echo ((isset($each_data['layout']) && ($each_data['layout'] != 'slides' && $each_data['layout'] != 'none' && $each_data['fixed_content_ajax'] != 'no'))) ? 'table-row' : ''; ?>">
+                <th ><label for="layout_qty">Quantity of layout for ajax :</label></th>
+                <td>
+                    <input class="single_field" type="text" value="<?php echo (isset($each_data['layout_qty_ajax'])) ? $each_data['layout_qty_ajax'] : '2'; ?>" name="data[1][layout_qty_ajax][]" placeholder="Qunatity of layout for ajax"/>
+                </td>
+            </tr>
             <tr class="left-ads-layout" style="">
                 <th ><label for="left-ads-layout">Choose left ads lauout :</label></th>
                 <td>

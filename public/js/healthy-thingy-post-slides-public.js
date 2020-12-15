@@ -31,32 +31,31 @@
      //bot side action triggeres
     function action_triggered_ads_load(){
         var device_width = jQuery(window).width();
+        jQuery.ajax({
+            url: healthyThingyObj.ajax_url,
+            type: 'post',
+            data: {action: "action_triggered_ads" },
+            dataType: 'json',
+            success: function (response) {
+                /*   Process ads ajax */
+                if (response[0]) {
+                    var action_triggeres_ads_left = response[0]['left_ads'];
+                    var action_triggeres_ads_right = response[0]['right_ads'];
 
-            jQuery.ajax({
-                url: healthyThingyObj.ajax_url,
-                type: 'post',
-                data: {action: "action_triggered_ads" },
-                dataType: 'json',
-                success: function (response) {
-                    /*   Process ads ajax */
-                    if (response[0]) {
-                        var action_triggeres_ads_left = response[0]['left_ads'];
-                        var action_triggeres_ads_right = response[0]['right_ads'];
-
-                        jQuery('.single-post #ternary div, #secondary div').html('');
-                        // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
-                        jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
-                        
-                        jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
-
-                    }
+                    jQuery('.single-post #ternary div, #secondary div').html('');
+                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
+                    jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
                     
-                    /*  End  Process ads ajax */
+                    jQuery('.single-post #secondary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_right+`</aside>`);
+
                 }
+                
+                /*  End  Process ads ajax */
+            }
 
-            });
-
+        });
     }
+
     //left rail acction triggered
     function action_triggered_ads_load_left(){
         var device_width = jQuery(window).width();
@@ -109,58 +108,69 @@
             }
         });
     }
-    //left rail custom deefault ads
-    function default_ads_load_left(){
-        jQuery.ajax({
-            url: healthyThingyObj.ajax_url,
-            type: 'post',
-            data: {action: "action_triggered_ads" },
-            dataType: 'json',
-            success: function (response) {
-                /*   Process ads ajax */
-                if (response[0]) {
-                    var action_triggeres_ads_left = response[0]['left_ads'];
-                    jQuery('.single-post #ternary div').html('');
-                    jQuery('.single-post #ternary').html(`<aside class=" widget popli-widget clearfix">`+action_triggeres_ads_left+`</aside>`);
-                }
-                /*  End  Process ads ajax */
-            }
-        });
-    }
     //left rail custom default ad append
     function default_ads_load_left_append(){
         jQuery.ajax({
             url: healthyThingyObj.ajax_url,
             type: 'post',
-            data: {action: "action_triggered_ads" },
+            data: {action: "default_ads_sidebar" },
             dataType: 'json',
             success: function (response) {
                 /*   Process ads ajax */
                 if (response[0]) {
-                    var action_triggeres_ads_left = response[0]['left_ads'];
-                    jQuery('.single-post #ternary').append(`<aside class=" widget popli-widget clearfix">`+action_triggeres_ads_left+`</aside>`);
+                    var default_ads_left = response[0]['left_ads'];
+                    jQuery('.single-post #ternary').append(`<aside class=" widget popli-widget clearfix">`+default_ads_left+`</aside>`);
                 }
                 /*  End  Process ads ajax */
             }
         });
     }
-    //right default ads add
-    function default_ads_load_right(){
+    //right default ads append
+    function default_ads_load_right_append(){
         jQuery.ajax({
             url: healthyThingyObj.ajax_url,
             type: 'post',
-            data: {action: "action_triggered_ads" },
+            data: {action: "default_ads_sidebar" },
             dataType: 'json',
             success: function (response) {
                 /*   Process ads ajax */
                 if (response[0]) {
-                    var action_triggeres_ads_right = response[0]['right_ads'];
-                    jQuery('.single-post #secondary div').html('');                    
-                    jQuery('.single-post #secondary').append(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="">`+action_triggeres_ads_right+`</aside>`);
+                    var default_ads_right = response[0]['right_ads'];
+                    jQuery('.single-post #secondary').append(`<aside class="widget popli-widget clearfix" style="">`+default_ads_right+`</aside>`);
                 }
                 /*  End  Process ads ajax */
             }
         });
+    }
+
+    //final function for ads
+    function ads_load_all(){
+        var l;
+        var adsCount = healthyThingyObj.ads_unit_for_action_trigger;
+        var device_width = jQuery(window).width();
+        if(healthyThingyObj.is_mobile == ''){
+            if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
+                action_triggered_ads_load();
+            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
+                action_triggered_ads_load_left();
+                for(l=0; l<adsCount;l++){
+                    default_ads_load_right_append();
+                }
+            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
+                action_triggered_ads_load_right();
+                // jQuery('.single-post #ternary div').html('');
+                for(l=0; l<adsCount;l++){
+                    default_ads_load_left_append();
+                }
+            }else if(healthyThingyObj.right_ads_layout == 'default-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
+                // jQuery('.single-post #secondary div').html('');
+                // jQuery('.single-post #ternary div').html('');
+                for(l=0; l<adsCount;l++){
+                    default_ads_load_right_append();
+                    default_ads_load_left_append();
+                } 
+            }
+        }
     }
     //
     jQuery(document).ready(function () {
@@ -348,36 +358,13 @@
     });
 
     jQuery(document).ready(function(){
-        var l;
-        var device_width = jQuery(window).width();
-        if(healthyThingyObj.is_mobile == ''){
-            if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
-                action_triggered_ads_load();
-            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
-                action_triggered_ads_load_left();
-                default_ads_load_right();
-            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
-                action_triggered_ads_load_right();
-                jQuery('.single-post #ternary div').html('');
-                for(l=0; l<2;l++){
-                    default_ads_load_left_append();
-                }
-            }
-        }
+        ads_load_all();
     })
 
     jQuery(window).resize(function() { 
-        if(healthyThingyObj.is_mobile == ''){
-            if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
-                action_triggered_ads_load();
-            }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
-                action_triggered_ads_load_left();
-                default_ads_load_right();
-            }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
-                action_triggered_ads_load_right();
-                default_ads_load_left();
-            }
-        }
+        jQuery('.single-post #secondary div').html('');
+        jQuery('.single-post #ternary div').html('');
+        ads_load_all();
     }); 
 
 //custom function to detect scroll bottom
@@ -394,6 +381,8 @@ let firedEventsBack = [];
 let firedEventsFooter = [];
 
 jQuery(window).scroll(function(event){
+    var leftCount = jQuery("#ternary > aside").length;
+    var rightCount = jQuery("#secondary > aside").length;
     var device_width = jQuery(window).width();
     var bottom = jQuery(window).scrollBottom();
     var st = jQuery(this).scrollTop();
@@ -403,40 +392,6 @@ jQuery(window).scroll(function(event){
         jQuery("br").each(function() {
             if (!firedEvents.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {                
                 firedEvents.push(this);
-            
-                if(healthyThingyObj.is_mobile == '' && firedEvents.length >= 1){
-                    if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
-                        action_triggered_ads_load();
-                    }else if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'default-ads'){
-                        action_triggered_ads_load_left();
-                        default_ads_load_right();
-                    }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads' && healthyThingyObj.left_ads_layout == 'default-ads'){
-                        action_triggered_ads_load_right();
-                        // default_ads_load_left_append();
-                    }
-                }
-            }
-        });
-        //fixed last ad inside ternary
-        if (jQuery(window).scrollTop() > jQuery('#ternary div:last').offset().top) {
-            console.log('up');
-            if(healthyThingyObj.is_mobile == ''){
-                if(healthyThingyObj.right_ads_layout == 'default-ads'){
-
-                }else if(healthyThingyObj.left_ads_layout == 'default-ads'){
-                     // jQuery("#ternary aside").each(function() { 
-                    jQuery('#ternary aside:last').css('position', 'fixed');
-                    jQuery('#ternary aside:last').css('top', '0px');
-                    jQuery('#ternary aside:last').css('width', '300px');
-                    // });
-                }
-            }
-        }
-
-        //scroll native ads refresh
-        jQuery(".theiaPostSlider_footer, .ctx-article-root").each(function() {
-            if (!firedEventsFooter.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {
-                firedEventsFooter.push(this);
                 if(healthyThingyObj.is_mobile == '' && firedEvents.length >= 1){
                     if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                         action_triggered_ads_load();
@@ -448,26 +403,79 @@ jQuery(window).scroll(function(event){
                 }
             }
         });
+        //fixed last ad inside ternary
+        // if(healthyThingyObj.is_mobile == '' && sideAds>1){
+        //     if (jQuery(window).scrollTop() > jQuery('#ternary div:last').offset().top) {
+        //         if(healthyThingyObj.left_ads_layout == 'default-ads'){
+        //             jQuery('#ternary aside:last').css('position', 'fixed');
+        //             jQuery('#ternary aside:last').css('top', '0px');
+        //             jQuery('#ternary aside:last').css('width', '300px');
+        //         }
+        //     }
+        // }
+
+        if(healthyThingyObj.is_mobile == '' && healthyThingyObj.fixed_last_ad == 1){
+            if(leftCount>1){
+                if(healthyThingyObj.left_ads_layout == 'default-ads'){
+                    if (jQuery(window).scrollTop() > jQuery('#ternary div:last').offset().top) {
+                        jQuery('#ternary aside:last').css('position', 'fixed');
+                        jQuery('#ternary aside:last').css('top', '0px');
+                        jQuery('#ternary aside:last').css('width', '300px');
+                    }
+                }
+            }else if(leftCount == 1){
+                jQuery('#ternary aside:first').css('position', 'fixed');
+                jQuery('#ternary aside:first').css('top', '0px');
+                jQuery('#ternary aside:first').css('width', '300px');
+            }
+        }
+        //fixed last ad inside secondary
+        if(healthyThingyObj.is_mobile == '' && healthyThingyObj.fixed_last_ad == 1){
+            if(rightCount>1){
+                if(healthyThingyObj.right_ads_layout == 'default-ads'){
+                    if (jQuery(window).scrollTop() > jQuery('#secondary div:last').offset().top) {
+                        jQuery('#secondary aside:last').css('position', 'fixed');
+                        jQuery('#secondary aside:last').css('top', '0px');
+                        jQuery('#secondary aside:last').css('width', '300px');
+                    }
+                }
+            }else if(rightCount == 1){
+                jQuery('#secondary aside:first').css('position', 'fixed');
+                jQuery('#secondary aside:first').css('top', '0px');
+                jQuery('#secondary aside:first').css('width', '300px');
+            }
+        }
 
     firedEventsBack = [];
-
     //when scroll up
     }else {
         //check distance between last 2 ads for default ad 
-        var distance = jQuery('#ternary aside:last').offset().top - jQuery('#ternary aside:nth-last-child(2)').offset().top;
-        console.log(distance);
-        if (jQuery(window).scrollTop() < jQuery('#ternary div:last').offset().top) {
-            console.log('down');
-            if(healthyThingyObj.is_mobile == ''){
+                
+        if(healthyThingyObj.is_mobile == '' && healthyThingyObj.fixed_last_ad == 1){
+            if(leftCount>1){
+                //left ads
+                if(healthyThingyObj.left_ads_layout == 'default-ads'){
+                    var distanceLeft = (jQuery('#ternary aside:last').offset().top) - (jQuery('#ternary aside:nth-last-child(2)').offset().top);
+                    if (jQuery(window).scrollTop() < jQuery('#ternary div:last').offset().top) {
+                        if(distanceLeft<500){
+                            jQuery("#ternary aside").each(function() { 
+                                jQuery('#ternary aside').css('position', '');
+                            });
+                        } 
+                    }
+                }
+            }
+                //right ads
+            if(rightCount>1 && healthyThingyObj.fixed_last_ad == 1){
                 if(healthyThingyObj.right_ads_layout == 'default-ads'){
-
-                }else if(healthyThingyObj.left_ads_layout == 'default-ads'){
-
-                    if(distance<500){
-                        jQuery("#ternary aside").each(function() { 
-                            jQuery('#ternary aside').css('position', '');
-                        });
-                    } 
+                    var distanceRight = (jQuery('#secondary aside:last').offset().top) - (jQuery('#secondary aside:nth-last-child(2)').offset().top);
+                    if (jQuery(window).scrollTop() < jQuery('#secondary div:last').offset().top) {
+                        if(distanceRight<500){
+                            jQuery("#secondary aside").each(function() { 
+                                jQuery('#secondary aside').css('position', '');
+                            });
+                        }
+                    }
                 }
             }
         }
@@ -485,7 +493,6 @@ jQuery(window).scroll(function(event){
   if (jQuery(this).scrollTop()  <= 50 ){
       firedEvents = [];
   }
-
 
 });
 
