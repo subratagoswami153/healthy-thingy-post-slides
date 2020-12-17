@@ -122,28 +122,6 @@ jQuery(document).ready(function ($) {
                 this_table.find('.first-image').hide();
             }
         });
-        
-         //on change divice display hide
-        jQuery(document).on('change', '.device_match_by', function () {
-            var matchBy = jQuery(this).children("option:selected").val();
-            if (matchBy == 'mobile'){
-                $(this).parents('table').find('.hide-mobile').hide();
-            }else{
-                $(this).parents('table').find('.hide-mobile').show();
-            }
-         });
-          //on change load ajax yes or no
-        jQuery(document).on('change', '.ajax_match_by', function () {
-            var matchBy = jQuery(this).children("option:selected").val();
-            if (matchBy == 'no'){
-                $(this).parents('table').find('.qty_field_ajax').hide();
-                $(this).parents('table').find('.qty_field label').text('Quantity of layout : ');
-            }else{
-                $(this).parents('table').find('.qty_field_ajax').show();
-                $(this).parents('table').find('.qty_field label').text('Initial quantity of layout : ');
-            }
-         });
-         
 
     });
 

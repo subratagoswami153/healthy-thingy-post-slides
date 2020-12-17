@@ -768,7 +768,7 @@ class Healthy_Thingy_Post_Slides_Public {
                     var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
                     if (nextTxt == 'Next'){
                         if(healthyThingyObj.post_style_mobile != 'long-form-fixed'){
-                            jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
+                            jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Page</span>");
                         }else if(healthyThingyObj.fixed_content_ajax == 'yes' && healthyThingyObj.post_style_mobile == 'long-form-fixed'){
                             jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>See more</span>");
                         }
@@ -813,7 +813,7 @@ class Healthy_Thingy_Post_Slides_Public {
                     jQuery("#ternary").height('auto');
                     var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
                     if (nextTxt == 'Next') {
-                        jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
+                        jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Page</span>");
                     }
                 });
             </script>

@@ -1,7 +1,6 @@
 <?php
 $is_display_first_image = '';
 $layout_label = '';
-$quantity_of_layout_label = 'Quantity of layout';
 if(isset($each_data['layout'])){
     switch ($each_data['layout']):
     case 'slides':
@@ -23,9 +22,6 @@ if(isset($each_data['layout'])){
     if($each_data['layout']=='long-form-scroll'){
         $is_display_first_image = 'table-row';
     }
-}
-if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']=='yes'){
-    $quantity_of_layout_label = 'Initial quantity of layout : ';
 }
 ?>
 <div class="set">
@@ -53,7 +49,7 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
             <tr>
                 <th ><label for="device">Device Type :</label></th>
                 <td>
-                    <select class="single_field device_match_by"  name="data[2][device][]">
+                    <select class="single_field"  name="data[2][device][]">
                         <option value="desktop" <?php echo (isset($desktop)) ? 'selected' : ''; ?>>Desktop</option>
                         <option value="mobile" <?php echo (isset($mobile)) ? 'selected' : ''; ?>>Mobile</option>
                     </select>
@@ -72,7 +68,7 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
             </tr>
 
             <tr class="qty_field" style="display:<?php echo ((isset($each_data['layout']) && ($each_data['layout'] != 'slides' && $each_data['layout'] != 'none'))) ? 'table-row' : ''; ?>">
-                <th ><label for="layout_qty"><?php echo $quantity_of_layout_label; ?></label></th>
+                <th ><label for="layout_qty">Quantity of layout :</label></th>
                 <td>
                     <input class="single_field" type="text" value="<?php echo (isset($each_data['layout_qty'])) ? $each_data['layout_qty'] : '2'; ?>" name="data[2][layout_qty][]" placeholder="Qunatity of layout"/>
                 </td>
@@ -98,7 +94,7 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
             <tr class="fixed-content-ajax" style="display:<?php echo ((isset($each_data['layout']) && ($each_data['layout'] == 'long-form-fixed'))) ? 'table-row' : ''; ?>">
                 <th ><label for="fixed_content_ajax">Load content using ajax :</label></th>
                 <td>
-                    <select class="single_field ajax_match_by" name="data[2][fixed_content_ajax][]">
+                    <select class="single_field" name="data[2][fixed_content_ajax][]">
                         <option value="yes" <?php echo (isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax'] == 'yes') ? 'selected' : ''; ?>>Yes</option>
                         <option value="no" <?php echo (isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax'] == 'no') ? 'selected' : ''; ?>>No</option>
                     </select>
@@ -110,8 +106,7 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
                     <input class="single_field" type="text" value="<?php echo (isset($each_data['layout_qty_ajax'])) ? $each_data['layout_qty_ajax'] : '2'; ?>" name="data[2][layout_qty_ajax][]" placeholder="Qunatity of layout for ajax"/>
                 </td>
             </tr>
-            
-            <tr class="left-ads-layout hide-mobile" style="display:<?php echo ($mobile)?'none':''; ?>">
+            <tr class="left-ads-layout" style="">
                 <th ><label for="left-ads-layout">Choose left ads lauout :</label></th>
                 <td>
                     <select class="single_field" name="data[2][left_ads_layout][]">
@@ -121,7 +116,7 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
                     </select>
                 </td>
             </tr>
-            <tr class="right-ads-layout hide-mobile" style="display:<?php echo ($mobile)?'none':''; ?>">
+            <tr class="right-ads-layout" style="">
                 <th ><label for="right-ads-layout">Choose right ads lauout :</label></th>
                 <td>
                     <select class="single_field" name="data[2][right_ads_layout][]">
@@ -131,13 +126,12 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
                     </select>
                 </td>
             </tr>
-             <tr class="ads-unit-for-action-trigger hide-mobile" style="display:<?php echo ($mobile)?'none':''; ?>" >
+             <tr class="ads-unit-for-action-trigger" >
                 <th ><label for="ads-unit-for-action-trigger">Ads quantity :</label></th>
                 <td>
                     <input class="single_field" type="text" value="<?php echo (isset($each_data['ads_unit_for_action_trigger'])) ? $each_data['ads_unit_for_action_trigger'] : '2'; ?>" name="data[2][ads_unit_for_action_trigger][]" placeholder="Ads quantity "/>
                 </td>
             </tr> 
-            
             <tr>
                 <th ></th>
                 <td>
