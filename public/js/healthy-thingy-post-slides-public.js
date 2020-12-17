@@ -224,96 +224,96 @@
         // }, 3000);      
     });
 
-    // var timeout;
-    // var flag = true;
-    // var total = 2;
-    // jQuery(window).on('scroll', function ($) {
-    //     if (!healthyThingyObj.utm_exists)
-    //         return false
-    //     if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.post_style_mobile != 'long-form-scroll')
-    //         return false
-    //     if (healthyThingyObj.is_mobile == '' && healthyThingyObj.post_style != 'long-form-scroll')
-    //         return false
-    //     clearTimeout(timeout);
-    //     timeout = setTimeout(function () {
-    //         // do your stuff
-    //         if (jQuery(window).scrollTop()+5000 >= jQuery('.theiaPostSlider_preloadedSlide').offset().top + jQuery('.theiaPostSlider_preloadedSlide').outerHeight() - window.innerHeight) {
-    //             //alert('hjhb');
-    //             if (flag == true)
-    //                 var next = parseInt((typeof jQuery('.theiaPostSlider_preloadedSlide').attr('data-next') === "undefined") ? 1 : jQuery('.theiaPostSlider_preloadedSlide').attr('data-next'));
-    //             if (next >= total)
-    //                 return false;
+    var timeout;
+    var flag = true;
+    var total = 2;
+    jQuery(window).on('scroll', function ($) {
+        if (!healthyThingyObj.utm_exists)
+            return false
+        if (healthyThingyObj.is_mobile == '1' && healthyThingyObj.post_style_mobile != 'long-form-scroll')
+            return false
+        if (healthyThingyObj.is_mobile == '' && healthyThingyObj.post_style != 'long-form-scroll')
+            return false
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            // do your stuff
+            if (jQuery(window).scrollTop()+5000 >= jQuery('.theiaPostSlider_preloadedSlide').offset().top + jQuery('.theiaPostSlider_preloadedSlide').outerHeight() - window.innerHeight) {
+                //alert('hjhb');
+                if (flag == true)
+                    var next = parseInt((typeof jQuery('.theiaPostSlider_preloadedSlide').attr('data-next') === "undefined") ? 1 : jQuery('.theiaPostSlider_preloadedSlide').attr('data-next'));
+                if (next >= total)
+                    return false;
 
-    //             jQuery('.infinite-scroll-loader').show();
-    //             jQuery.ajax({
-    //                 url: healthyThingyObj.ajax_url,
-    //                 type: 'post',
-    //                 data: {action: "healthy_thingy_post_slides_infinite_scroll", desktop_qty: healthyThingyObj.desktop_qty, mobile_qty: healthyThingyObj.mobile_qty, post_id: healthyThingyObj.current_post, next_page: next, },
-    //                 dataType: 'json',
-    //                 success: function (response) {
+                jQuery('.infinite-scroll-loader').show();
+                jQuery.ajax({
+                    url: healthyThingyObj.ajax_url,
+                    type: 'post',
+                    data: {action: "healthy_thingy_post_slides_infinite_scroll", desktop_qty: healthyThingyObj.desktop_qty, mobile_qty: healthyThingyObj.mobile_qty, post_id: healthyThingyObj.current_post, next_page: next, },
+                    dataType: 'json',
+                    success: function (response) {
 
-    //                     jQuery('.infinite-scroll-loader').hide();
-    //                     if (response.flag != false) {
-    //                         jQuery('.theiaPostSlider_preloadedSlide').attr('data-next', response.next_page);
-    //                         total = parseInt(response.total);
-    //                     }
+                        jQuery('.infinite-scroll-loader').hide();
+                        if (response.flag != false) {
+                            jQuery('.theiaPostSlider_preloadedSlide').attr('data-next', response.next_page);
+                            total = parseInt(response.total);
+                        }
 
-    //                     jQuery('.theiaPostSlider_preloadedSlide').append(response.html);
-    //                     /*   Process ads ajax */
-    //                     if (response.ads_response) {
-    //                         var i;
-    //                         for (i = 0; i < response.ads_response.length; i++) {
-    //                             var ad = response.ads_response[i];
-    //                             jQuery(ad.item).insertAfter('.healthy-thingy-' + response.container_class + ' '+ad.element);
-    //                         }
-    //                     }
+                        jQuery('.theiaPostSlider_preloadedSlide').append(response.html);
+                        /*   Process ads ajax */
+                        if (response.ads_response) {
+                            var i;
+                            for (i = 0; i < response.ads_response.length; i++) {
+                                var ad = response.ads_response[i];
+                                jQuery(ad.item).insertAfter('.healthy-thingy-' + response.container_class + ' '+ad.element);
+                            }
+                        }
 
-    //                     if (response.ads_response_sidebar[0]) {
-    //                         var j;
-    //                         // for (i = 0; i < response.ads_response_sidebar[0]length; i++) {
-    //                         var ads_sidebar = response.ads_response_sidebar[0];
-    //                         if(ads_sidebar.enable_ads == 'left'){
-    //                             for(j=0; j<healthyThingyObj.desktop_qty; j++){
-    //                                 jQuery('#ternary').append(ads_sidebar.left_ads);
-    //                             }  
-    //                         }else if(ads_sidebar.enable_ads == 'right'){
-    //                             for(j=0; j<healthyThingyObj.desktop_qty; j++){
-    //                                 jQuery('#secondary').append(ads_sidebar.right_ads);
-    //                             }
-    //                         }else if(ads_sidebar.enable_ads == 'both'){
-    //                             for(j=0; j<healthyThingyObj.desktop_qty; j++){
-    //                                 jQuery('#ternary').append(ads_sidebar.left_ads);
-    //                                 jQuery('#secondary').append(ads_sidebar.right_ads);
-    //                             }
-    //                         }
-    //                     }
-    //                     /*  End  Process ads ajax */
-    //                     jQuery(".popli-left-rail-top").each(function() {  
-    //                       var ads_height = jQuery(this).height();
-    //                       if(ads_height <= 300){
-    //                         jQuery(this).addClass('less_300');
-    //                       }else if(ads_height >= 300){
-    //                         jQuery(this).addClass('bigger_300');
-    //                       }
-    //                     });
-    //                 }
+                        if (response.ads_response_sidebar[0]) {
+                            var j;
+                            // for (i = 0; i < response.ads_response_sidebar[0]length; i++) {
+                            var ads_sidebar = response.ads_response_sidebar[0];
+                            if(ads_sidebar.enable_ads == 'left'){
+                                for(j=0; j<healthyThingyObj.desktop_qty; j++){
+                                    jQuery('#ternary').append(ads_sidebar.left_ads);
+                                }  
+                            }else if(ads_sidebar.enable_ads == 'right'){
+                                for(j=0; j<healthyThingyObj.desktop_qty; j++){
+                                    jQuery('#secondary').append(ads_sidebar.right_ads);
+                                }
+                            }else if(ads_sidebar.enable_ads == 'both'){
+                                for(j=0; j<healthyThingyObj.desktop_qty; j++){
+                                    jQuery('#ternary').append(ads_sidebar.left_ads);
+                                    jQuery('#secondary').append(ads_sidebar.right_ads);
+                                }
+                            }
+                        }
+                        /*  End  Process ads ajax */
+                        jQuery(".popli-left-rail-top").each(function() {  
+                          var ads_height = jQuery(this).height();
+                          if(ads_height <= 300){
+                            jQuery(this).addClass('less_300');
+                          }else if(ads_height >= 300){
+                            jQuery(this).addClass('bigger_300');
+                          }
+                        });
+                    }
 
-    //             });
-    //             flag = false;
-    //             //on ajax complete
-    //             jQuery(document).ajaxComplete(function (event, request, settings) {
-    //                 flag = true;
-    //                 // remove wp-has-aspect-ration from figure
-    //                 if (jQuery('.wp-block-embed-youtube').hasClass("wp-has-aspect-ratio")) {
-    //                     jQuery('.wp-block-embed-youtube').removeClass("wp-has-aspect-ratio");
-    //                 }
+                });
+                flag = false;
+                //on ajax complete
+                jQuery(document).ajaxComplete(function (event, request, settings) {
+                    flag = true;
+                    // remove wp-has-aspect-ration from figure
+                    if (jQuery('.wp-block-embed-youtube').hasClass("wp-has-aspect-ratio")) {
+                        jQuery('.wp-block-embed-youtube').removeClass("wp-has-aspect-ratio");
+                    }
 
-    //             });
+                });
 
-    //         }
-    //     }, 50);
+            }
+        }, 50);
 
-    // });
+    });
 
     jQuery(document).ready(function ($) {
         // var device_width = jQuery(window).width();
@@ -360,15 +360,12 @@
     jQuery(document).ready(function(){
         ads_load_all();
     })
-    setTimeout(function(){ 
-        jQuery(window).resize(function() { 
-            jQuery('.single-post #secondary div').html('');
-            jQuery('.single-post #ternary div').html('');
-            ads_load_all();
-        }); 
-    }, 5000);
 
-
+    jQuery(window).resize(function() { 
+        jQuery('.single-post #secondary div').html('');
+        jQuery('.single-post #ternary div').html('');
+        ads_load_all();
+    }); 
 
 //custom function to detect scroll bottom
 (function( $ ){
@@ -423,13 +420,13 @@ jQuery(window).scroll(function(event){
                     if (jQuery(window).scrollTop() > jQuery('#ternary div:last').offset().top) {
                         jQuery('#ternary aside:last').css('position', 'fixed');
                         jQuery('#ternary aside:last').css('top', '0px');
-                        // jQuery('#ternary aside:last').css('width', '300px');
+                        jQuery('#ternary aside:last').css('width', '300px');
                     }
                 }
             }else if(leftCount == 1){
                 jQuery('#ternary aside:first').css('position', 'fixed');
                 jQuery('#ternary aside:first').css('top', '0px');
-                // jQuery('#ternary aside:first').css('width', '300px');
+                jQuery('#ternary aside:first').css('width', '300px');
             }
         }
         //fixed last ad inside secondary
@@ -439,13 +436,13 @@ jQuery(window).scroll(function(event){
                     if (jQuery(window).scrollTop() > jQuery('#secondary div:last').offset().top) {
                         jQuery('#secondary aside:last').css('position', 'fixed');
                         jQuery('#secondary aside:last').css('top', '0px');
-                        // jQuery('#secondary aside:last').css('width', '300px');
+                        jQuery('#secondary aside:last').css('width', '300px');
                     }
                 }
             }else if(rightCount == 1){
                 jQuery('#secondary aside:first').css('position', 'fixed');
                 jQuery('#secondary aside:first').css('top', '0px');
-                // jQuery('#secondary aside:first').css('width', '300px');
+                jQuery('#secondary aside:first').css('width', '300px');
             }
         }
 

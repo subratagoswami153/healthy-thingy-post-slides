@@ -112,6 +112,10 @@ class Healthy_Thingy_Post_Slides_Public {
         $current_page = $wp_query->query['page'];
         Healthy_Thingy_Post_Slides_Admin::initialize_attribute();
         wp_enqueue_script($this->plugin_name . 'public-js', plugin_dir_url(__FILE__) . 'js/healthy-thingy-post-slides-public.js', array('jquery'), $this->version, false);
+        
+        if (Healthy_Thingy_Post_Slides_Admin::$desktop_fixed_content_ajax == 'yes') {
+            wp_enqueue_script($this->plugin_name . 'new-desktop-public-js', plugin_dir_url(__FILE__) . 'js/new-desktop-public.js', array('jquery'), $this->version, false);
+        }
         if (Healthy_Thingy_Post_Slides_Admin::$mobile_fixed_content_ajax == 'yes') {
             wp_enqueue_script($this->plugin_name . 'new-mobile-public-js', plugin_dir_url(__FILE__) . 'js/new-mobile-public.js', array('jquery'), $this->version, false);
         }
@@ -768,7 +772,7 @@ class Healthy_Thingy_Post_Slides_Public {
                     var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
                     if (nextTxt == 'Next'){
                         if(healthyThingyObj.post_style_mobile != 'long-form-fixed'){
-                            jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Page</span>");
+                            jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
                         }else if(healthyThingyObj.fixed_content_ajax == 'yes' && healthyThingyObj.post_style_mobile == 'long-form-fixed'){
                             jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>See more</span>");
                         }
@@ -813,7 +817,7 @@ class Healthy_Thingy_Post_Slides_Public {
                     jQuery("#ternary").height('auto');
                     var nextTxt = jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').text();
                     if (nextTxt == 'Next') {
-                        jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Page</span>");
+                        jQuery('.theiaPostSlider_nav.fontTheme ._buttons ._next ._1').replaceWith("<span class='_1'>Next Slide</span>");
                     }
                 });
             </script>

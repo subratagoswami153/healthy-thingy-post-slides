@@ -59,6 +59,7 @@ class Healthy_Thingy_Post_Slides_Admin {
     public static $ads_unit_for_action_trigger;
     public static $hide_prev_button_mobile;
     public static $next_prev_button_style_desktop;
+    public static $desktop_fixed_content_ajax;
     public static $mobile_fixed_content_ajax;
     public static $layout_qty_ajax;
 
@@ -268,7 +269,7 @@ class Healthy_Thingy_Post_Slides_Admin {
                 // mobile version
                 if (empty($mobile_qty) || $mobile_qty < 1)
                     return FALSE;
-                $this->post_slides_traffic(self::$post_style_mobile, $mobile_qty, self::$mobile_first_slide);
+                $this->post_slides_traffic(self::$post_style_mobile, $mobile_qty, self::$mobile_first_slide, TRUE);
 
             else:
                 // desktop version
@@ -283,17 +284,16 @@ class Healthy_Thingy_Post_Slides_Admin {
     /**
      * Pagination functionality
      */
-    public function post_slides_traffic(string $style, $quantity, $first_slides) {
+    public function post_slides_traffic(string $style, $quantity, $first_slides, $mobile = FALSE) {
         global $pages, $page;
 
         if (empty($style)):
             return FALSE;
         endif;
 
-        if ($style == 'long-form-fixed') {
 
-            if (self::$mobile_fixed_content_ajax != 'yes') {
-                
+        if ($style == 'long-form-fixed') {
+            if ($mobile && self::$mobile_fixed_content_ajax != 'yes') {
                 if ($first_slides == 'yes') {
                     for ($i = 0; $i < $quantity - 1; $i++) {
                         array_splice($pages, 1, 0, array(' '));
@@ -301,16 +301,26 @@ class Healthy_Thingy_Post_Slides_Admin {
                 } else {
                     // array_shift($pages);
                 }
-
+                $pages = $this->page_break_pagination($pages, $quantity);
+            } elseif (!$mobile && self::$desktop_fixed_content_ajax != 'yes') {
+                if ($first_slides == 'yes') {
+                    for ($i = 0; $i < $quantity - 1; $i++) {
+                        array_splice($pages, 1, 0, array(' '));
+                    }
+                } else {
+                    // array_shift($pages);
+                }
                 $pages = $this->page_break_pagination($pages, $quantity);
             } else {
                 $post_content_html = [];
+
                 foreach ($pages as $key => $p_co) {
                     $class = 'p-show';
                     if ($key > $quantity)
                         $class = 'p-none';
                     $post_content_html[0] .= '<div class="' . $class . '">' . $p_co . '</div>';
                 }
+
                 $pages = $post_content_html;
             }
         }
@@ -398,6 +408,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                 self::$desktop_qty = $box_data['id_match']['desktop'][$post->ID]['layout_qty'];
                 self::$desktop_first_slide = $box_data['id_match']['desktop'][$post->ID]['first_slide'];
                 self::$desktop_first_image = $box_data['id_match']['desktop'][$post->ID]['first_image'];
+                self::$desktop_fixed_content_ajax = $box_data['id_match']['desktop'][$post->ID]['fixed_content_ajax'];
+                self::$layout_qty_ajax = $box_data['id_match']['desktop'][$post->ID]['layout_qty_ajax'];
                 self::$left_ads_layout = $box_data['id_match']['desktop'][$post->ID]['left_ads_layout'];
                 self::$right_ads_layout = $box_data['id_match']['desktop'][$post->ID]['right_ads_layout'];
                 self::$ads_unit_for_action_trigger = $box_data['id_match']['desktop'][$post->ID]['ads_unit_for_action_trigger'];
@@ -415,6 +427,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 self::$desktop_qty = $box_data['utm_campaign']['desktop']['contains'][$u_key]['layout_qty'];
                                 self::$desktop_first_slide = $box_data['utm_campaign']['desktop']['contains'][$u_key]['first_slide'];
                                 self::$desktop_first_image = $box_data['utm_campaign']['desktop']['contains'][$u_key]['first_image'];
+                                self::$desktop_fixed_content_ajax = $box_data['utm_campaign']['desktop'][$u_key]['fixed_content_ajax'];
+                                self::$layout_qty_ajax = $box_data['utm_campaign']['desktop'][$u_key]['layout_qty_ajax'];
                                 self::$left_ads_layout = $box_data['utm_campaign']['desktop']['contains'][$u_key]['left_ads_layout'];
                                 self::$right_ads_layout = $box_data['utm_campaign']['desktop']['contains'][$u_key]['right_ads_layout'];
                                 self::$ads_unit_for_action_trigger = $box_data['utm_campaign']['desktop']['contains'][$u_key]['ads_unit_for_action_trigger'];
@@ -431,6 +445,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                         self::$desktop_qty = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['layout_qty'];
                                         self::$desktop_first_slide = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['first_slide'];
                                         self::$desktop_first_image = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['first_image'];
+                                        self::$desktop_fixed_content_ajax = $box_data['utm_campaign']['desktop'][$u_key]['fixed_content_ajax'];
+                                        self::$layout_qty_ajax = $box_data['utm_campaign']['desktop'][$u_key]['layout_qty_ajax'];
                                         self::$left_ads_layout = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['left_ads_layout'];
                                         self::$right_ads_layout = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['right_ads_layout'];
                                         self::$ads_unit_for_action_trigger = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['ads_unit_for_action_trigger'];
@@ -446,6 +462,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             self::$desktop_qty = $box_data['utm_source']['desktop'][$source]['layout_qty'];
                             self::$desktop_first_slide = $box_data['utm_source']['desktop'][$source]['first_slide'];
                             self::$desktop_first_image = $box_data['utm_source']['desktop'][$source]['first_image'];
+                            self::$desktop_fixed_content_ajax = $box_data['utm_source']['desktop'][$source]['fixed_content_ajax'];
+                            self::$layout_qty_ajax = $box_data['utm_source']['desktop'][$source]['layout_qty_ajax'];
                             self::$left_ads_layout = $box_data['utm_source']['desktop'][$source]['left_ads_layout'];
                             self::$right_ads_layout = $box_data['utm_source']['desktop'][$source]['right_ads_layout'];
                             self::$ads_unit_for_action_trigger = $box_data['utm_source']['desktop'][$source]['ads_unit_for_action_trigger'];
@@ -457,6 +475,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             self::$desktop_qty = $box_data['utm_source']['desktop'][$source]['layout_qty'];
                             self::$desktop_first_slide = $box_data['utm_source']['desktop'][$source]['first_slide'];
                             self::$desktop_first_image = $box_data['utm_source']['desktop'][$source]['first_image'];
+                            self::$desktop_fixed_content_ajax = $box_data['utm_source']['desktop'][$source]['fixed_content_ajax'];
+                            self::$layout_qty_ajax = $box_data['utm_source']['desktop'][$source]['layout_qty_ajax'];
                             self::$left_ads_layout = $box_data['utm_source']['desktop'][$source]['left_ads_layout'];
                             self::$right_ads_layout = $box_data['utm_source']['desktop'][$source]['right_ads_layout'];
                             self::$ads_unit_for_action_trigger = $box_data['utm_source']['desktop'][$source]['ads_unit_for_action_trigger'];
