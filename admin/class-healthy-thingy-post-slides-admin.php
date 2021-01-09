@@ -62,6 +62,8 @@ class Healthy_Thingy_Post_Slides_Admin {
     public static $desktop_fixed_content_ajax;
     public static $mobile_fixed_content_ajax;
     public static $layout_qty_ajax;
+    public static $periodical_yes;
+    public static $periodical_interval;
 
     public function __construct($plugin_name, $version) {
         $this->plugin_name = $plugin_name;
@@ -313,9 +315,9 @@ class Healthy_Thingy_Post_Slides_Admin {
                 $pages = $this->page_break_pagination($pages, $quantity);
             } else {
                 $post_content_html = [];
-
+                
                 foreach ($pages as $key => $p_co) {
-                    $class = 'p-show';
+                    $class = ($_COOKIE['load_content']=='true')?'p-none':'p-show';
                     if ($key > $quantity)
                         $class = 'p-none';
                     $post_content_html[0] .= '<div class="' . $class . '">' . $p_co . '</div>';
@@ -329,7 +331,15 @@ class Healthy_Thingy_Post_Slides_Admin {
             /* if(self::$first_slide == 'no')
               array_shift($pages); */
 
-            $pages = $this->page_break_pagination($pages, $quantity);
+            //$pages = $this->page_break_pagination($pages, $quantity);
+            $post_content_html = [];
+                
+                foreach ($pages as $key => $p_co) {
+                       $class = 'p-show';
+                    $post_content_html[0] .= '<div class="' . $class . '">' . $p_co . '</div>';
+                }
+
+                $pages = $post_content_html;
         }
     }
 
@@ -346,7 +356,7 @@ class Healthy_Thingy_Post_Slides_Admin {
      * Post slide ajax call functionality
      */
     public function test_overridr_ajax() {
-
+        
         global $post, $pages;
         $qty = get_option('ht_long_fixed_content_qty');
         $mobile_qty = get_option('ht_long_fixed_content_qty_mobile');
@@ -403,6 +413,7 @@ class Healthy_Thingy_Post_Slides_Admin {
             // If post id match
 
             if (in_array($post->ID, array_keys($box_data['id_match']['desktop']))) {
+                
                 self::$utm_exists = TRUE;
                 self::$post_style = $box_data['id_match']['desktop'][$post->ID]['layout'];
                 self::$desktop_qty = $box_data['id_match']['desktop'][$post->ID]['layout_qty'];
@@ -410,6 +421,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                 self::$desktop_first_image = $box_data['id_match']['desktop'][$post->ID]['first_image'];
                 self::$desktop_fixed_content_ajax = $box_data['id_match']['desktop'][$post->ID]['fixed_content_ajax'];
                 self::$layout_qty_ajax = $box_data['id_match']['desktop'][$post->ID]['layout_qty_ajax'];
+                self::$periodical_yes = $box_data['id_match']['desktop'][$post->ID]['periodical_yes'];
+                self::$periodical_interval = $box_data['id_match']['desktop'][$post->ID]['periodical_interval'];
                 self::$left_ads_layout = $box_data['id_match']['desktop'][$post->ID]['left_ads_layout'];
                 self::$right_ads_layout = $box_data['id_match']['desktop'][$post->ID]['right_ads_layout'];
                 self::$ads_unit_for_action_trigger = $box_data['id_match']['desktop'][$post->ID]['ads_unit_for_action_trigger'];
@@ -427,8 +440,10 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 self::$desktop_qty = $box_data['utm_campaign']['desktop']['contains'][$u_key]['layout_qty'];
                                 self::$desktop_first_slide = $box_data['utm_campaign']['desktop']['contains'][$u_key]['first_slide'];
                                 self::$desktop_first_image = $box_data['utm_campaign']['desktop']['contains'][$u_key]['first_image'];
-                                self::$desktop_fixed_content_ajax = $box_data['utm_campaign']['desktop'][$u_key]['fixed_content_ajax'];
-                                self::$layout_qty_ajax = $box_data['utm_campaign']['desktop'][$u_key]['layout_qty_ajax'];
+                                self::$desktop_fixed_content_ajax = $box_data['utm_campaign']['desktop']['contains'][$u_key]['fixed_content_ajax'];
+                                self::$layout_qty_ajax = $box_data['utm_campaign']['desktop']['contains'][$u_key]['layout_qty_ajax'];
+                                self::$periodical_yes = $box_data['utm_campaign']['desktop']['contains'][$u_key]['periodical_yes'];
+                                self::$periodical_interval = $box_data['utm_campaign']['desktop']['contains'][$u_key]['periodical_interval'];
                                 self::$left_ads_layout = $box_data['utm_campaign']['desktop']['contains'][$u_key]['left_ads_layout'];
                                 self::$right_ads_layout = $box_data['utm_campaign']['desktop']['contains'][$u_key]['right_ads_layout'];
                                 self::$ads_unit_for_action_trigger = $box_data['utm_campaign']['desktop']['contains'][$u_key]['ads_unit_for_action_trigger'];
@@ -445,8 +460,10 @@ class Healthy_Thingy_Post_Slides_Admin {
                                         self::$desktop_qty = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['layout_qty'];
                                         self::$desktop_first_slide = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['first_slide'];
                                         self::$desktop_first_image = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['first_image'];
-                                        self::$desktop_fixed_content_ajax = $box_data['utm_campaign']['desktop'][$u_key]['fixed_content_ajax'];
-                                        self::$layout_qty_ajax = $box_data['utm_campaign']['desktop'][$u_key]['layout_qty_ajax'];
+                                        self::$desktop_fixed_content_ajax = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['fixed_content_ajax'];
+                                        self::$layout_qty_ajax = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['layout_qty_ajax'];
+                                        self::$periodical_yes = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['periodical_yes'];
+                                        self::$periodical_interval = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['periodical_interval'];
                                         self::$left_ads_layout = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['left_ads_layout'];
                                         self::$right_ads_layout = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['right_ads_layout'];
                                         self::$ads_unit_for_action_trigger = $box_data['utm_campaign']['desktop']['exclude'][$u_key]['ads_unit_for_action_trigger'];
@@ -464,6 +481,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             self::$desktop_first_image = $box_data['utm_source']['desktop'][$source]['first_image'];
                             self::$desktop_fixed_content_ajax = $box_data['utm_source']['desktop'][$source]['fixed_content_ajax'];
                             self::$layout_qty_ajax = $box_data['utm_source']['desktop'][$source]['layout_qty_ajax'];
+                            self::$periodical_yes = $box_data['utm_source']['desktop'][$source]['periodical_yes'];
+                            self::$periodical_interval = $box_data['utm_source']['desktop'][$source]['periodical_interval'];
                             self::$left_ads_layout = $box_data['utm_source']['desktop'][$source]['left_ads_layout'];
                             self::$right_ads_layout = $box_data['utm_source']['desktop'][$source]['right_ads_layout'];
                             self::$ads_unit_for_action_trigger = $box_data['utm_source']['desktop'][$source]['ads_unit_for_action_trigger'];
@@ -477,6 +496,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             self::$desktop_first_image = $box_data['utm_source']['desktop'][$source]['first_image'];
                             self::$desktop_fixed_content_ajax = $box_data['utm_source']['desktop'][$source]['fixed_content_ajax'];
                             self::$layout_qty_ajax = $box_data['utm_source']['desktop'][$source]['layout_qty_ajax'];
+                            self::$periodical_yes = $box_data['utm_source']['desktop'][$source]['periodical_yes'];
+                            self::$periodical_interval = $box_data['utm_source']['desktop'][$source]['periodical_interval'];
                             self::$left_ads_layout = $box_data['utm_source']['desktop'][$source]['left_ads_layout'];
                             self::$right_ads_layout = $box_data['utm_source']['desktop'][$source]['right_ads_layout'];
                             self::$ads_unit_for_action_trigger = $box_data['utm_source']['desktop'][$source]['ads_unit_for_action_trigger'];
@@ -495,6 +516,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                 self::$mobile_first_image = $box_data['id_match']['mobile'][$post->ID]['first_image'];
                 self::$mobile_fixed_content_ajax = $box_data['id_match']['mobile'][$post->ID]['fixed_content_ajax'];
                 self::$layout_qty_ajax = $box_data['id_match']['mobile'][$post->ID]['layout_qty_ajax'];
+                self::$periodical_yes = $box_data['id_match']['mobile'][$post->ID]['periodical_yes'];
+                self::$periodical_interval = $box_data['id_match']['mobile'][$post->ID]['periodical_interval'];
                 self::$left_ads_layout = $box_data['id_match']['mobile'][$post->ID]['left_ads_layout'];
                 self::$right_ads_layout = $box_data['id_match']['mobile'][$post->ID]['right_ads_layout'];
                 self::$ads_unit_for_action_trigger = $box_data['id_match']['mobile'][$post->ID]['ads_unit_for_action_trigger'];
@@ -516,6 +539,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 self::$mobile_first_image = $box_data['utm_campaign']['mobile']['contains'][$u_key]['first_image'];
                                 self::$mobile_fixed_content_ajax = $box_data['utm_campaign']['mobile']['contains'][$u_key]['fixed_content_ajax'];
                                 self::$layout_qty_ajax = $box_data['utm_campaign']['mobile']['contains'][$u_key]['layout_qty_ajax'];
+                                self::$periodical_yes = $box_data['utm_campaign']['mobile']['contains'][$u_key]['periodical_yes'];
+                                self::$periodical_interval = $box_data['utm_campaign']['mobile'][$u_key]['contains']['periodical_interval'];
                                 self::$left_ads_layout = $box_data['utm_campaign']['mobile']['contains'][$u_key]['left_ads_layout'];
                                 self::$right_ads_layout = $box_data['utm_campaign']['mobile']['contains'][$u_key]['right_ads_layout'];
                                 self::$ads_unit_for_action_trigger = $box_data['utm_campaign']['mobile']['contains'][$u_key]['ads_unit_for_action_trigger'];
@@ -540,6 +565,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             self::$mobile_first_image = $box_data['utm_source']['mobile'][$source]['first_image'];
                             self::$mobile_fixed_content_ajax = $box_data['utm_source']['mobile'][$source]['fixed_content_ajax'];
                             self::$layout_qty_ajax = $box_data['utm_source']['mobile'][$source]['layout_qty_ajax'];
+                            self::$periodical_yes = $box_data['utm_source']['mobile'][$source]['periodical_yes'];
+                            self::$periodical_interval = $box_data['utm_source']['mobile'][$source]['periodical_interval'];
                             self::$left_ads_layout = $box_data['utm_source']['mobile'][$source]['left_ads_layout'];
                             self::$right_ads_layout = $box_data['utm_source']['mobile'][$source]['right_ads_layout'];
                             self::$ads_unit_for_action_trigger = $box_data['utm_source']['mobile'][$source]['ads_unit_for_action_trigger'];
@@ -553,6 +580,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             self::$mobile_first_image = $box_data['utm_source']['mobile'][$source]['first_image'];
                             self::$mobile_fixed_content_ajax = $box_data['utm_source']['mobile'][$source]['fixed_content_ajax'];
                             self::$layout_qty_ajax = $box_data['utm_source']['mobile'][$source]['layout_qty_ajax'];
+                            self::$periodical_yes = $box_data['utm_source']['mobile'][$source]['periodical_yes'];
+                            self::$periodical_interval = $box_data['utm_source']['mobile'][$source]['periodical_interval'];
                             self::$left_ads_layout = $box_data['utm_source']['mobile'][$source]['left_ads_layout'];
                             self::$right_ads_layout = $box_data['utm_source']['mobile'][$source]['right_ads_layout'];
                             self::$ads_unit_for_action_trigger = $box_data['utm_source']['mobile'][$source]['ads_unit_for_action_trigger'];
@@ -561,11 +590,12 @@ class Healthy_Thingy_Post_Slides_Admin {
                 }
             }
         }
-        /* echo '<pre>';
+         /*echo '<pre>';
           print_r(self::$post_style);
+          print_r(self::$periodical_yes);
 
           echo '<br>';
-          print_r(self::$desktop_qty);
+          print_r(self::$periodical_interval);
           echo '<br>';
           print_r(self::$desktop_first_slide);
           echo '<br>';
@@ -600,6 +630,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             'first_image' => $utm_sources['first_image'][$key],
                             'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                             'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                            'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                            'periodical_interval' => $utm_sources['periodical_interval'][$key],
                             'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                             'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                             'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key]
@@ -612,6 +644,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             'first_image' => $utm_sources['first_image'][$key],
                             'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                             'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                            'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                            'periodical_interval' => $utm_sources['periodical_interval'][$key],
                             'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                             'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                             'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key]
@@ -634,6 +668,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 'first_image' => $utm_sources['first_image'][$key],
                                 'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                                 'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                                'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                                'periodical_interval' => $utm_sources['periodical_interval'][$key],
                                 'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                                 'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                                 'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key],
@@ -648,6 +684,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 'first_image' => $utm_sources['first_image'][$key],
                                 'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                                 'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                                'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                                'periodical_interval' => $utm_sources['periodical_interval'][$key],
                                 'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                                 'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                                 'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key],
@@ -664,6 +702,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 'first_image' => $utm_sources['first_image'][$key],
                                 'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                                 'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                                'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                                'periodical_interval' => $utm_sources['periodical_interval'][$key],
                                 'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                                 'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                                 'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key],
@@ -678,6 +718,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                                 'first_image' => $utm_sources['first_image'][$key],
                                 'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                                 'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                                'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                                'periodical_interval' => $utm_sources['periodical_interval'][$key],
                                 'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                                 'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                                 'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key],
@@ -698,6 +740,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             'first_image' => $utm_sources['first_image'][$key],
                             'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                             'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                            'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                            'periodical_interval' => $utm_sources['periodical_interval'][$key],
                             'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                             'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                             'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key],
@@ -710,6 +754,8 @@ class Healthy_Thingy_Post_Slides_Admin {
                             'first_image' => $utm_sources['first_image'][$key],
                             'fixed_content_ajax' => $utm_sources['fixed_content_ajax'][$key],
                             'layout_qty_ajax' => $utm_sources['layout_qty_ajax'][$key],
+                            'periodical_yes' => $utm_sources['periodical_yes_hidden'][$key],
+                            'periodical_interval' => $utm_sources['periodical_interval'][$key],
                             'left_ads_layout' => $utm_sources['left_ads_layout'][$key],
                             'right_ads_layout' => $utm_sources['right_ads_layout'][$key],
                             'ads_unit_for_action_trigger' => $utm_sources['ads_unit_for_action_trigger'][$key]

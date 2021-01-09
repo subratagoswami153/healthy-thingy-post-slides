@@ -249,6 +249,12 @@
 .fixed-content-ajax{
     display: none;
 }
+.periodical-content {
+    display: none;
+}
+.periodical-qty{
+    display: none;
+}
 .field-hide{
     display: none;
 }

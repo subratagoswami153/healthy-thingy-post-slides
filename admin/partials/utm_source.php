@@ -2,7 +2,7 @@
 /*  Save post slides settings */
 
 if (isset($_POST['save'])) {
-    
+
     $data = [];
     $utm_campaign = $_POST['data'][1];
     $utm_sources = $_POST['data'][2];
@@ -10,6 +10,7 @@ if (isset($_POST['save'])) {
     $data['id_match'] = $this->filter_raw_data($post_ids,'id_match');
     $data['utm_campaign'] = $this->filter_raw_data($utm_campaign,'utm_campaign');
     $data['utm_source'] = $this->filter_raw_data($utm_sources,'utm_source');
+    
     update_option('ht_post_slides_data', $data);
 }
 /*  fetch data */

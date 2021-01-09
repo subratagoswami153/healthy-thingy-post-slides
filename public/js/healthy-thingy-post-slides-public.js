@@ -142,12 +142,42 @@
             }
         });
     }
+    
+    //right rail ads on demands
+    function on_demands_ads_load_right(){
+        var device_width = jQuery(window).width();
+        var visibleHeight = jQuery(window.top).height();
+        var eachSpace = visibleHeight/2;
+        jQuery.ajax({
+            url: healthyThingyObj.ajax_url,
+            type: 'post',
+            data: {action: "action_triggered_ads" },
+            dataType: 'json',
+            success: function (response) {
+//                alert('ajax complete');
+                /*   Process ads ajax */
+                if (response[0]) {
+                    // var action_triggeres_ads_left = response[0]['left_ads'];
+                    var action_triggeres_ads_right = response[0]['right_ads'];
+
+                    // jQuery('.single-post #ternary div, #secondary div').html('');
+                    //jQuery('.single-post #secondary div').html('');
+                    // jQuery('#ternary').addClass('q2w3-fixed-widget-container');
+                    // jQuery('.single-post #ternary').html(`<aside class="ads-padding-top-120 widget popli-widget clearfix" style="top: 10px; width: inherit; position: fixed;">`+action_triggeres_ads_left+`</aside>`);
+                    var height_of_outer = jQuery('.p-show').height();
+                    jQuery('.single-post #secondary').append(`<div style="position:relative; height:`+height_of_outer+`px;" ><aside class="vertical-center ads-padding-top-120 widget popli-widget clearfix">`+action_triggeres_ads_right+`</aside></div>`);
+                }
+                /*  End  Process ads ajax */
+            }
+        });
+    }
 
     //final function for ads
     function ads_load_all(){
         var l;
         var adsCount = healthyThingyObj.ads_unit_for_action_trigger;
         var device_width = jQuery(window).width();
+        //console.log(healthyThingyObj.left_ads_layout);console.log(healthyThingyObj.right_ads_layout);return false;
         if(healthyThingyObj.is_mobile == ''){
             if(healthyThingyObj.left_ads_layout == 'action-triggered-ads' && healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                 action_triggered_ads_load();
@@ -380,6 +410,7 @@
 // //action triggeres ads refresh functionalty
 var lastScrollTop = 0;
 let firedEvents = [];
+let onDemansfiredEvents = [];
 let firedEventsBack = [];
 let firedEventsFooter = [];
 
@@ -392,7 +423,8 @@ jQuery(window).scroll(function(event){
     //when scroll bottom
     if (st > lastScrollTop){
         //for br tag
-        jQuery("br").each(function() {
+        jQuery("h4").each(function() {
+            // console.log(firedEvents);
             if (!firedEvents.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {                
                 firedEvents.push(this);
                 if(healthyThingyObj.is_mobile == '' && firedEvents.length >= 1){
@@ -402,6 +434,23 @@ jQuery(window).scroll(function(event){
                         action_triggered_ads_load_left();
                     }else if(healthyThingyObj.right_ads_layout == 'action-triggered-ads'){
                         action_triggered_ads_load_right();
+                    }
+                    // else if(healthyThingyObj.right_ads_layout == 'on-demand-ads'){
+                    //     on_demands_ads_load_right();
+                    // }
+                }
+            }
+        });
+
+        jQuery("h4").each(function() {
+            //console.log(onDemansfiredEvents);
+            if (!onDemansfiredEvents.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {                
+                onDemansfiredEvents.push(this);
+                if(healthyThingyObj.is_mobile == ''){
+
+                    if(healthyThingyObj.right_ads_layout == 'on-demand-ads'){
+                        // alert('sddfd');
+                        on_demands_ads_load_right();
                     }
                 }
             }
@@ -487,7 +536,7 @@ jQuery(window).scroll(function(event){
             if(!firedEventsBack.includes(this) && bottom > jQuery(this).offset().top){
                     firedEvents.pop();
                 firedEventsBack.push(this);
-                console.log(firedEventsBack);
+                // console.log(firedEventsBack);
             }
         });
     }
@@ -498,5 +547,30 @@ jQuery(window).scroll(function(event){
   }
 
 });
+//ondemand ads load
+// jQuery(window).scroll(function(event){
+//     var leftCount = jQuery("#ternary > aside").length;
+//     var rightCount = jQuery("#secondary > aside").length;
+//     var device_width = jQuery(window).width();
+//     var bottom = jQuery(window).scrollBottom();
+//     var st = jQuery(this).scrollTop();
+//     //when scroll bottom
+//     if (st > lastScrollTop){
+//         //for br tag
+//         jQuery("h4").each(function() {
+//             onDemansfiredEvents.push(this);
+//             console.log(onDemansfiredEvents);
+//             if (!onDemansfiredEvents.includes(this) && jQuery(window).scrollTop() > jQuery(this).offset().top) {                
+                
+//                 if(healthyThingyObj.is_mobile == ''){
+//                     if(healthyThingyObj.right_ads_layout == 'on-demand-ads'){
+//                         on_demands_ads_load_right();
+//                     }
+//                 }
+//             }
+//         });
+//     }
+//     lastScrollTop = st;
+// });
 
 })(jQuery);

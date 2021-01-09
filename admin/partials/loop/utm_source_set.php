@@ -111,6 +111,22 @@ if(isset($each_data['fixed_content_ajax']) && $each_data['fixed_content_ajax']==
                 </td>
             </tr>
             
+            <tr class="periodical-content" style="display:<?php echo ((isset($each_data['layout']) && ($each_data['layout'] == 'long-form-fixed'))) ? 'table-row' : ''; ?>">
+                <th ><label for="fixed_content_ajax">Enable Periodical ajax :</label></th>
+                <td>
+                    <input type="checkbox" class="periodical-yes"  name="data[2][periodical_yes][]" value="yes" <?php echo ($each_data['periodical_yes']=='yes')?'checked':''; ?> >
+                    <input type="hidden" class="periodical-yes-hidden"  name="data[2][periodical_yes_hidden][]" value="<?php echo ($each_data['periodical_yes']=='yes')?'yes':''; ?>"  >
+                    <label> check enable periodical ajax</label>
+                </td>
+            </tr>
+            
+            <tr class="periodical-qty" style="display:<?php echo ($each_data['layout'] == 'long-form-fixed' && ($each_data['periodical_yes'] == 'yes')) ? 'table-row' : ''; ?>">
+                <th ><label for="periodical_interval">Periodical Interval Times :</label></th>
+                <td>
+                    <input class="single_field" type="text" value="<?php echo (isset($each_data['periodical_interval'])) ? $each_data['periodical_interval'] : '2'; ?>" name="data[2][periodical_interval][]" placeholder="Periodical Interval Times"/>
+                </td>
+            </tr>
+            
             <tr class="left-ads-layout hide-mobile" style="display:<?php echo ($mobile)?'none':''; ?>">
                 <th ><label for="left-ads-layout">Choose left ads lauout :</label></th>
                 <td>
